@@ -6,6 +6,7 @@ import {
   Text,
   View
 } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
 
 import commonStyles from './app/styles/common'
 import indexStyles from './app/styles'
@@ -18,6 +19,10 @@ const instructions = Platform.select({
 })
 
 class App extends Component<{}> {
+  componentDidMount() {
+    SplashScreen.hide()
+  }
+
   render() {
     return (
       <View style={StyleSheet.flatten([commonStyles.container, indexStyles.container])}>
