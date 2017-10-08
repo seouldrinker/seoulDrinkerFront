@@ -37,6 +37,12 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		909D510EE18B4B95ADCD19B5 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 923A4BB4289E4A4E96AEDAC7 /* libSplashScreen.a */; };
+		397A1DCED827436F9F7BDAFA /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7963616C5F7A475AAAB22E3B /* libRNGoogleSignin.a */; };
+		D3C931FB73DC4A4FB685D55F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = DCED9B18DA8D4AEDA65C3924 /* libz.tbd */; };
+		EF778E7BE5E8457BB54BAFCA /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A188CFBCFE8440A4BF96983D /* SafariServices.framework */; };
+		BCFC912EE35746D0A58FB4F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08734DB1C2974898A4A0F8F7 /* SystemConfiguration.framework */; };
+		9EA92F2D1A584B849D8FDBBD /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9DB8A2713C4720ABCFE577 /* AddressBook.framework */; };
+		152CC4E127B94DD590FBD185 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7391B3D154D7483EA575ED02 /* libRCTFBLogin.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,6 +272,14 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		185C1A124EB642888FBF2F60 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; name = "SplashScreen.xcodeproj"; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		923A4BB4289E4A4E96AEDAC7 /* libSplashScreen.a */ = {isa = PBXFileReference; name = "libSplashScreen.a"; path = "libSplashScreen.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		3BA66C5D910E47CA9043CCB9 /* RNGoogleSignin.xcodeproj */ = {isa = PBXFileReference; name = "RNGoogleSignin.xcodeproj"; path = "../node_modules/react-native-google-signin/ios/RNGoogleSignin.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		7963616C5F7A475AAAB22E3B /* libRNGoogleSignin.a */ = {isa = PBXFileReference; name = "libRNGoogleSignin.a"; path = "libRNGoogleSignin.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		DCED9B18DA8D4AEDA65C3924 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		A188CFBCFE8440A4BF96983D /* SafariServices.framework */ = {isa = PBXFileReference; name = "SafariServices.framework"; path = "System/Library/Frameworks/SafariServices.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		08734DB1C2974898A4A0F8F7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		9B9DB8A2713C4720ABCFE577 /* AddressBook.framework */ = {isa = PBXFileReference; name = "AddressBook.framework"; path = "System/Library/Frameworks/AddressBook.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		198F1DDCC3C24785BA268DBD /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBLogin.xcodeproj"; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		7391B3D154D7483EA575ED02 /* libRCTFBLogin.a */ = {isa = PBXFileReference; name = "libRCTFBLogin.a"; path = "libRCTFBLogin.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +309,12 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				909D510EE18B4B95ADCD19B5 /* libSplashScreen.a in Frameworks */,
+				397A1DCED827436F9F7BDAFA /* libRNGoogleSignin.a in Frameworks */,
+				D3C931FB73DC4A4FB685D55F /* libz.tbd in Frameworks */,
+				EF778E7BE5E8457BB54BAFCA /* SafariServices.framework in Frameworks */,
+				BCFC912EE35746D0A58FB4F6 /* SystemConfiguration.framework in Frameworks */,
+				9EA92F2D1A584B849D8FDBBD /* AddressBook.framework in Frameworks */,
+				152CC4E127B94DD590FBD185 /* libRCTFBLogin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +484,8 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				185C1A124EB642888FBF2F60 /* SplashScreen.xcodeproj */,
+				3BA66C5D910E47CA9043CCB9 /* RNGoogleSignin.xcodeproj */,
+				198F1DDCC3C24785BA268DBD /* RCTFBLogin.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -484,6 +506,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* seoulDrinkerFrontTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
+				36E86C8F52D948CA8F2C366D /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -508,6 +531,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		36E86C8F52D948CA8F2C366D /* Frameworks */ = {
+			isa = "PBXGroup";
+			children = (
+				DCED9B18DA8D4AEDA65C3924 /* libz.tbd */,
+				A188CFBCFE8440A4BF96983D /* SafariServices.framework */,
+				08734DB1C2974898A4A0F8F7 /* SystemConfiguration.framework */,
+				9B9DB8A2713C4720ABCFE577 /* AddressBook.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1016,6 +1051,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 				);
 			};
 			name = Debug;
@@ -1041,6 +1078,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 				);
 			};
 			name = Release;
@@ -1063,6 +1102,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 				);
 			};
 			name = Debug;
@@ -1084,6 +1125,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 				);
 			};
 			name = Release;
@@ -1118,6 +1161,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 				);
 			};
 			name = Debug;
@@ -1152,6 +1197,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
+					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
+					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
 				);
 			};
 			name = Release;

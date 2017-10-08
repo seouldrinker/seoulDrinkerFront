@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "288716852533",
+    "project_id": "seouldrinker"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288716852533:android:b4370fca371003c1",
+        "android_client_info": {
+          "package_name": "com.seouldrinkerfront"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288716852533-ppbnh034e8n14j5qi3fm4hc33ghfolgn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.seouldrinkerfront",
+            "certificate_hash": "c846af59099d71f5e5efb66e1481d10564993f33"
+          }
+        },
+        {
+          "client_id": "288716852533-u5eq295ug80a53dl20ai4b8687doinlh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuG2n_dxWLOK7-IMHS-hdrjRrdHqvwTLA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
