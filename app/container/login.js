@@ -11,18 +11,19 @@ import { FBLogin, FBLoginManager } from 'react-native-facebook-login'
 import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { requestPosts, receivePosts, breweries, beers, events } from '../actions'
+
+import * as actions from "../actions"
 
 import styles from '../styles/login'
 
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      user: null,
-      platform: null,
-    }
+    // this.state = {
+    //   user: null,
+    //   platform: null,
+    // }
   }
 
   async _getGoogleCredential (cb) {
@@ -65,7 +66,8 @@ export default class Login extends Component {
 
     await this._getGoogleCredential((googleUser) => {
       _this.onFbLogout()
-      _this.setState({ user: googleUser, platform: 'google' })
+      _this.props.setLogin(googleUser, 'google')
+      // _this.setState({ user: googleUser, platform: 'google' })
       _this.props.navigation.navigate('Home', {
         user: googleUser,
         platform: 'google',
@@ -74,8 +76,9 @@ export default class Login extends Component {
     })
 
     this._getFbCredential((fbUser) => {
-      _this.setState({ user: fbUser, platform: 'facebook' })
-      this.props.navigation.navigate('Home', {
+      _this.props.setLogin(fbUser, 'facebook')
+      // _this.setState({ user: fbUser, platform: 'facebook' })
+      _this.props.navigation.navigate('Home', {
         user: fbUser,
         platform: 'facebook',
       })
@@ -94,7 +97,8 @@ export default class Login extends Component {
       (error, user) => {
         console.log('facebook login!')
       if (!error) {
-        _this.setState({ user, platform: 'facebook' })
+        _this.props.setLogin(user, 'facebook')
+        // _this.setState({ user, platform: 'facebook' })
         this.props.navigation.navigate('Home', { user, platform: 'facebook' })
       } else {
         console.log(error, user)
@@ -107,7 +111,8 @@ export default class Login extends Component {
     FBLoginManager.logout((error, user) => {
       if (!error) {
         console.log('facebook logout!')
-        _this.setState({ user: null, platform: null })
+        _this.props.setLogout()
+        // _this.setState({ user: null, platform: null })
       } else {
         console.log(error, user)
       }
@@ -118,7 +123,8 @@ export default class Login extends Component {
     var _this = this
     this.onFbLogout(() => {
       console.log('facebook logout!')
-      _this.setState({ user: null, platform: null })
+      _this.props.setLogout()
+      // _this.setState({ user: null, platform: null })
     })
 
     const googleUser = await GoogleSignin.currentUserAsync()
@@ -126,7 +132,8 @@ export default class Login extends Component {
       await this.onGoogleLogout(async () => {
         await GoogleSignin.signIn().then((user) => {
           console.log('google login!')
-          _this.setState({ user, platform: 'google' })
+          _this.props.setLogin(user, 'google')
+          // _this.setState({ user, platform: 'google' })
           this.props.navigation.navigate('Home', { user, platform: 'google' })
         }).catch((err) => {
           console.log('WRONG SIGNIN', err)
@@ -135,7 +142,8 @@ export default class Login extends Component {
     } else {
       await GoogleSignin.signIn().then((user) => {
         console.log('google login!')
-        _this.setState({ user, platform: 'google' })
+        _this.props.setLogin(user, 'google')
+        // _this.setState({ user, platform: 'google' })
         this.props.navigation.navigate('Home', { user, platform: 'google' })
       })
       .catch((err) => {
@@ -150,7 +158,8 @@ export default class Login extends Component {
     await GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut())
       .then(() => {
       console.log('google logout!')
-      _this.setState({ user: null, platform: null })
+      _this.props.setLogout()
+      // _this.setState({ user: null, platform: null })
       if (cb && typeof cb === 'function') {
         cb()
       }
@@ -187,3 +196,9 @@ export default class Login extends Component {
     )
   }
 }
+
+export default connect(state => ({
+  auth: state.auth
+}), dispatch => (
+  bindActionCreators(actions, dispatch)
+))(Login)

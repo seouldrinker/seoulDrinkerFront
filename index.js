@@ -1,41 +1,31 @@
-import { AppRegistry } from 'react-native'
 import React, { Component } from 'react'
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native'
-import SplashScreen from 'react-native-splash-screen'
+import { AppRegistry } from 'react-native'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, compose } from 'redux'
+import { createLogger } from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
 
-import commonStyles from './app/styles/common'
-import indexStyles from './app/styles'
+import reducer from './app/reducers'
+import AppWithNavigationState from './app/navigation/appNavigator'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-})
+const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
 
-class App extends Component<{}> {
-  componentDidMount() {
-    SplashScreen.hide()
+class App extends Component {
+  configureStore(initialState) {
+    const enhancer = compose(
+      applyMiddleware(
+        thunkMiddleware,
+        loggerMiddleware,
+      ),
+    )
+    return createStore(reducer, initialState, enhancer)
   }
 
   render() {
     return (
-      <View style={StyleSheet.flatten([commonStyles.container, indexStyles.container])}>
-        <Text style={indexStyles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={indexStyles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={indexStyles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <Provider store={this.configureStore({})}>
+        <AppWithNavigationState />
+      </Provider>
     )
   }
 }
