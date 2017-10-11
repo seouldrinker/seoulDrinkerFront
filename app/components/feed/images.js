@@ -5,7 +5,7 @@ import styles from '../../styles/feed'
 
 const { width, height } = Dimensions.get('window')
 
-import { STATIC_URL } from '../../actions'
+import { STATIC_URL } from '../../../config/config'
 
 export default class FeedImagesComponent extends Component {
   constructor (props) {

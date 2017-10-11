@@ -1,8 +1,7 @@
 import axios from 'axios'
 
-export const ROOT_URL = 'http://192.168.0.14:3000/'
-export const STATIC_URL = 'http://192.168.0.14:3000/static'
-export const API_URL = 'http://192.168.0.14:3000/seoulDrinkerApi/vbeta'
+import { ROOT_URL, STATIC_URL, API_URL } from '../../config/config'
+
 
 export function setLogin(user, platform) {
   return {
