@@ -3,6 +3,7 @@ package com.seouldrinkerfront;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.magus.fblogin.FacebookLoginPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          new ImagePickerPackage(),
           new FacebookLoginPackage(),
           new SplashScreenReactPackage(),
           new RNGoogleSigninPackage()
