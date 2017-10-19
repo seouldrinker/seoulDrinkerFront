@@ -43,6 +43,7 @@
 		BCFC912EE35746D0A58FB4F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08734DB1C2974898A4A0F8F7 /* SystemConfiguration.framework */; };
 		9EA92F2D1A584B849D8FDBBD /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9DB8A2713C4720ABCFE577 /* AddressBook.framework */; };
 		152CC4E127B94DD590FBD185 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7391B3D154D7483EA575ED02 /* libRCTFBLogin.a */; };
+		A244DA880F474C96854C8A3C /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED3BEFAF622E440B8FA69CA2 /* libRNImagePicker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,6 +281,8 @@
 		9B9DB8A2713C4720ABCFE577 /* AddressBook.framework */ = {isa = PBXFileReference; name = "AddressBook.framework"; path = "System/Library/Frameworks/AddressBook.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		198F1DDCC3C24785BA268DBD /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBLogin.xcodeproj"; path = "../node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		7391B3D154D7483EA575ED02 /* libRCTFBLogin.a */ = {isa = PBXFileReference; name = "libRCTFBLogin.a"; path = "libRCTFBLogin.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		5A7318C29F8E40DDB82D36B0 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		ED3BEFAF622E440B8FA69CA2 /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +318,7 @@
 				BCFC912EE35746D0A58FB4F6 /* SystemConfiguration.framework in Frameworks */,
 				9EA92F2D1A584B849D8FDBBD /* AddressBook.framework in Frameworks */,
 				152CC4E127B94DD590FBD185 /* libRCTFBLogin.a in Frameworks */,
+				A244DA880F474C96854C8A3C /* libRNImagePicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +490,7 @@
 				185C1A124EB642888FBF2F60 /* SplashScreen.xcodeproj */,
 				3BA66C5D910E47CA9043CCB9 /* RNGoogleSignin.xcodeproj */,
 				198F1DDCC3C24785BA268DBD /* RCTFBLogin.xcodeproj */,
+				5A7318C29F8E40DDB82D36B0 /* RNImagePicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1047,12 +1052,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Debug;
@@ -1074,12 +1081,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Release;
@@ -1104,6 +1113,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Debug;
@@ -1127,6 +1137,7 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Release;
@@ -1157,12 +1168,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Debug;
@@ -1193,12 +1206,14 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin/**",
 					"$(SRCROOT)/../node_modules/react-native-facebook-login/RCTFBLogin/**",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Release;
@@ -1224,6 +1239,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1248,6 +1264,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};

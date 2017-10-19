@@ -1,48 +1,59 @@
 import React, { Component } from 'react'
 import {
   Text,
+  ListView,
   View,
-  Image
 } from 'react-native'
-import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as actions from "../actions"
 
 import styles from '../styles/common'
 
-export default class News extends Component {
+import NewsComponent from '../components/news'
+
+class News extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      user: null
-    }
-  }
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'hohoho',
-      tabBarLabel: 'hhh',
-      tabBarIcon: ({ tintColor }) => (
-        <Text size={24} color="white">SB</Text>
-      ),
-    }
-  }
 
-  componentDidMount () {
-    // console.log(this.props.screenProps.user)
+    this.props.navigation.setParams({
+      initNewsList: this.props.getAllNewsList,
+    })
   }
+  static navigationOptions = ({ navigation }) => ({
+    tabBarOnPress: (scene, jumpToIndex) => {
+      navigation.state.params.initNewsList()
+      jumpToIndex(scene.index)
+    },
+  })
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    )
+    if (this.props.newsData && this.props.newsData.newsList) {
+      const ds = new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      })
+
+      return (
+        <View>
+          <View style={{ backgroundColor: '#eea51b', height: 56, elevation: 8, }}>
+            <Text style={{ marginTop: 14, marginLeft: 60, color: '#fff',
+              fontSize: 20, fontWeight: '600', }}>News</Text>
+          </View>
+          <ListView
+            dataSource={ds.cloneWithRows(this.props.newsData.newsList)}
+            renderRow={rowData => {return <NewsComponent data={rowData} />}}
+          />
+        </View>
+      )
+    }
+    return <Text>Loading...</Text>
   }
 }
+
+export default connect(state => ({
+  nav: state.nav,
+  auth: state.auth,
+  newsData: state.newsData,
+}), dispatch => (
+  bindActionCreators(actions, dispatch)
+))(News)

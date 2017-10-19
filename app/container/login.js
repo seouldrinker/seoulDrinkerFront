@@ -20,10 +20,6 @@ import styles from '../styles/login'
 class Login extends Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   user: null,
-    //   platform: null,
-    // }
   }
 
   async _getGoogleCredential (cb) {
@@ -64,21 +60,29 @@ class Login extends Component {
     var _this = this
     SplashScreen.hide()
 
-    await this._getGoogleCredential((googleUser) => {
-      _this.onFbLogout()
-      _this.props.setLogin(googleUser, 'google')
-      // _this.setState({ user: googleUser, platform: 'google' })
-      _this.props.navigation.navigate('Home', {
+    await this._getGoogleCredential(async (googleUser) => {
+      await _this.props.setLogin(googleUser, 'google')
+      await _this.props.addUser({
+        id: googleUser.id,
+        platform: 'google',
+        email: googleUser.email,
+        name: googleUser.name,
+        picture: googleUser.photo,
+      })
+      await _this.props.navigation.navigate('Home', {
         user: googleUser,
         platform: 'google',
       })
       return 0
     })
 
-    this._getFbCredential((fbUser) => {
-      _this.props.setLogin(fbUser, 'facebook')
-      // _this.setState({ user: fbUser, platform: 'facebook' })
-      _this.props.navigation.navigate('Home', {
+    this._getFbCredential(async (fbUser) => {
+      await _this.props.setLogin(fbUser, 'facebook')
+      await _this.props.addUser({
+        platform: 'facebook',
+        access_token: fbUser.credentials.token,
+      })
+      await _this.props.navigation.navigate('Home', {
         user: fbUser,
         platform: 'facebook',
       })
@@ -94,12 +98,15 @@ class Login extends Component {
     }
     this.onFbLogout()
     FBLoginManager.loginWithPermissions(["email", "user_photos"],
-      (error, user) => {
+      async (error, user) => {
         console.log('facebook login!')
       if (!error) {
-        _this.props.setLogin(user, 'facebook')
-        // _this.setState({ user, platform: 'facebook' })
-        this.props.navigation.navigate('Home', { user, platform: 'facebook' })
+        await _this.props.setLogin(user, 'facebook')
+        await _this.props.addUser({
+          platform: 'facebook',
+          access_token: user.credentials.token,
+        })
+        await this.props.navigation.navigate('Home', { user, platform: 'facebook' })
       } else {
         console.log(error, user)
       }
@@ -112,7 +119,6 @@ class Login extends Component {
       if (!error) {
         console.log('facebook logout!')
         _this.props.setLogout()
-        // _this.setState({ user: null, platform: null })
       } else {
         console.log(error, user)
       }
@@ -124,27 +130,38 @@ class Login extends Component {
     this.onFbLogout(() => {
       console.log('facebook logout!')
       _this.props.setLogout()
-      // _this.setState({ user: null, platform: null })
     })
 
     const googleUser = await GoogleSignin.currentUserAsync()
     if (googleUser && googleUser.id) {
       await this.onGoogleLogout(async () => {
-        await GoogleSignin.signIn().then((user) => {
+        await GoogleSignin.signIn().then(async (user) => {
           console.log('google login!')
-          _this.props.setLogin(user, 'google')
-          // _this.setState({ user, platform: 'google' })
-          this.props.navigation.navigate('Home', { user, platform: 'google' })
+          await _this.props.setLogin(user, 'google')
+          await _this.props.addUser({
+            id: user.id,
+            platform: 'google',
+            email: user.email,
+            name: user.name,
+            picture: user.photo,
+          })
+          await this.props.navigation.navigate('Home', { user, platform: 'google' })
         }).catch((err) => {
           console.log('WRONG SIGNIN', err)
         }).done()
       })
     } else {
-      await GoogleSignin.signIn().then((user) => {
+      await GoogleSignin.signIn().then(async (user) => {
         console.log('google login!')
-        _this.props.setLogin(user, 'google')
-        // _this.setState({ user, platform: 'google' })
-        this.props.navigation.navigate('Home', { user, platform: 'google' })
+        await _this.props.setLogin(user, 'google')
+        await _this.props.addUser({
+          id: user.id,
+          platform: 'google',
+          email: user.email,
+          name: user.name,
+          picture: user.photo,
+        })
+        await this.props.navigation.navigate('Home', { user, platform: 'google' })
       })
       .catch((err) => {
         console.log('WRONG SIGNIN', err)
@@ -159,7 +176,6 @@ class Login extends Component {
       .then(() => {
       console.log('google logout!')
       _this.props.setLogout()
-      // _this.setState({ user: null, platform: null })
       if (cb && typeof cb === 'function') {
         cb()
       }

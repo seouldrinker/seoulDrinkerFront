@@ -5,15 +5,19 @@ import {
   Image
 } from 'react-native'
 
-import styles from '../styles/common'
+import styles from '../../styles/common'
 
-export default class Record extends Component {
+export default class My extends Component {
   static navigationOptions = {
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View>
+        <View style={{ backgroundColor: '#fff', height: 56, elevation: 8, }}>
+          <Text style={{ marginTop: 16, marginLeft: 60, color: '#000',
+            fontSize: 18, fontWeight: '500', }}>마이 페이지</Text>
+        </View>
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>

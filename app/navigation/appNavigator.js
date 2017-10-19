@@ -1,34 +1,49 @@
 import React, { Component } from 'react'
-import { Image, TouchableOpacity, PropTypes } from 'react-native'
+import {
+  Image,
+  TouchableOpacity,
+  Text,
+} from 'react-native'
 import { StackNavigator, NavigationActions, addNavigationHelpers } from 'react-navigation'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import mainNavigator from './mainNavigator'
+import MainNavigator from './mainNavigator'
+import RankNavigator from './rankNavigator'
 import Login from '../container/login'
-import Rank from '../container/rank'
-import News from '../container/news'
+import Record from '../container/record'
+import PubDetail from '../container/pub/pubDetail'
+import BeerDetail from '../container/beer/beerDetail'
+
+import * as actions from '../actions'
 
 export const AppNavigator = StackNavigator({
   Home: {
-    screen: mainNavigator,
+    screen: MainNavigator,
     navigationOptions: ({ navigation, screenProps }) => ({
-      headerTitle: <Image
-        source={require('../images/common/logo.png')}
-        style={{ width: 156, height: 28, alignSelf: 'center', }}/>,
-      headerLeft: <Image
-        source={require('../images/common/news.png')}
-        style={{marginLeft: 20}}/>,
+      headerTitle: (
+        <Image source={require('../images/common/logo.png')}
+          style={{ width: 156, height: 28, alignSelf: 'center', }}/>
+      ),
+      headerLeft: (
+        <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.navigate({
+            routeName: 'Record',
+          }))}>
+          <Image source={require('../images/common/record.png')}
+            style={{ marginLeft: 20, }}/>
+        </TouchableOpacity>
+      ),
       headerRight: (
         <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.navigate({
-          routeName: 'Login',
+          routeName: 'Rank',
         }))}>
-          <Image style={{marginRight: 25}}
-            source={require('../images/common/rank.png')}/>
+          <Image source={require('../images/common/rank.png')}
+            style={{ marginRight: 25, }}/>
         </TouchableOpacity>
       ),
       headerStyle: {
         backgroundColor: '#eea51b',
-        elevation: 0,
+        elevation: 8,
       }
     })
   },
@@ -39,26 +54,30 @@ export const AppNavigator = StackNavigator({
     }
   },
   Rank: {
-    screen: Rank,
+    screen: RankNavigator,
     navigationOptions: ({ navigation, screenProps }) => ({
-      headerTitle: <Image
-        source={require('../images/common/logo.png')}
-        style={{ width: 90, height: 39 }}/>,
+      headerTitle: <Text style={{ fontSize: 20, fontWeight: '600', color: '#fff' }}>Ranking</Text>,
+      headerTintColor: '#fff',
       headerStyle: {
-        backgroundColor: '#eea51b',
+        backgroundColor: '#ee741b',
+        elevation: 0,
       }
     })
   },
-  News: {
-    screen: News,
-    navigationOptions: ({ navigation, screenProps }) => ({
-      headerTitle: <Image
-        source={require('../images/common/logo.png')}
-        style={{ width: 90, height: 39 }}/>,
-      headerStyle: {
-        backgroundColor: '#eea51b',
-      }
-    })
+  Record: {
+    screen: Record,
+  },
+  PubDetail: {
+    screen: PubDetail,
+    navigationOptions: {
+      header: null
+    }
+  },
+  BeerDetail: {
+    screen: BeerDetail,
+    navigationOptions: {
+      header: null
+    }
   },
 })
 
@@ -67,8 +86,7 @@ const AppWithNavigationState = ({ dispatch, nav }) => (
   <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
 )
 
-const mapStateToProps = state => ({
+export default connect(state => ({
   nav: state.nav,
-})
-
-export default connect(mapStateToProps)(AppWithNavigationState)
+  auth: state.auth,
+}))(AppWithNavigationState)

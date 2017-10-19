@@ -13,7 +13,7 @@ export default class FeedComponent extends Component {
           feedId={this.props.data._id}
           date={this.props.data.udt_dt}
           picture={this.props.data.user.picture}
-          name={this.props.data.user.id}
+          name={this.props.data.user.name}
         />
         <FeedImagesComponent image={this.props.data.image} />
         <FeedContentsComponent

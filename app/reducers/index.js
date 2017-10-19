@@ -1,40 +1,18 @@
 import { combineReducers } from 'redux'
-// import { NavigationActions } from 'react-navigation'
 
 import { AppNavigator } from '../navigation/appNavigator'
 
-// const firstAction = AppNavigator.router.getActionForPathAndParams('Main')
-// const tempNavState = AppNavigator.router.getStateForAction(firstAction)
-// const secondAction = AppNavigator.router.getActionForPathAndParams('Login')
-// const initialNavState = AppNavigator.router.getStateForAction(
-//   secondAction,
-//   tempNavState
-// )
-//
-// const nav = (state = initialNavState, action) => {
-//   let nextState
-//   switch (action.type) {
-//     case 'Login':
-//       nextState = AppNavigator.router.getStateForAction(
-//         NavigationActions.back(),
-//         state
-//       )
-//       break
-//     case 'Logout':
-//       nextState = AppNavigator.router.getStateForAction(
-//         NavigationActions.navigate({ routeName: 'Login' }),
-//         state
-//       )
-//       break
-//     default:
-//       nextState = AppNavigator.router.getStateForAction(action, state)
-//       break
-//   }
-//   return nextState || state
-// }
 
-const initialAuthState = { user: null, platform: null, isLoggedIn: false, feedList: null }
-const initialFeedListState = { feedList: null, currentPage: null, totalPage: null }
+const initialAuthState = { user: null, platform: null, isLoggedIn: false,
+  feedList: null }
+const initialFeedListState = { feedList: null, currentPage: null,
+  totalPage: null }
+const initialNewsListState = { newsList: null, currentPage: null,
+  totalPage: null }
+const initialBeerListState = { beerList: null, beerDetail: null,
+  currentPage: null, totalPage: null }
+const initialPubListState = { pubList: null, pubDetail: null,
+  currentPage: null, totalPage: null }
 
 const nav = (state, action) => {
   const newState = AppNavigator.router.getStateForAction(action, state)
@@ -56,6 +34,12 @@ const auth = (state = initialAuthState, action) => {
         isLoggedIn: false,
         user: null,
         platform: null,
+        signedUpUser: null,
+      }
+    case 'SIGNED_UP_USER':
+      return {
+        ...state,
+        signedUpUser: action.signedUpUser,
       }
     default:
       return state
@@ -71,6 +55,67 @@ const feedData = (state = initialFeedListState, action) => {
         currentPage: action.currentPage,
         totalPage: action.totalPage,
       }
+    case 'ADD_FEED_LIST':
+      return {
+        ...state,
+        feedList: state.feedList.concat(action.feedList),
+        currentPage: action.currentPage,
+        totalPage: action.totalPage,
+      }
+    default:
+      return state
+  }
+}
+
+const newsData = (state = initialNewsListState, action) => {
+  switch (action.type) {
+    case 'SET_NEWS_LIST':
+      return {
+        ...state,
+        newsList: action.newsList,
+        currentPage: action.currentPage,
+        totalPage: action.totalPage,
+      }
+    default:
+      return state
+  }
+}
+
+
+const beerData = (state = initialBeerListState, action) => {
+  switch (action.type) {
+    case 'SET_BEER_LIST':
+      return {
+        ...state,
+        beerList: action.beerList,
+        currentPage: action.currentPage,
+        totalPage: action.totalPage,
+      }
+    case 'SET_BEER_DETAIL':
+      return {
+        ...state,
+        beerDetail: action.beerDetail,
+      }
+    default:
+      return state
+  }
+}
+
+
+const pubData = (state = initialPubListState, action) => {
+  switch (action.type) {
+    case 'SET_PUB_LIST':
+      return {
+        ...state,
+        pubList: action.pubList,
+        currentPage: action.currentPage,
+        totalPage: action.totalPage,
+      }
+    case 'SET_PUB_DETAIL':
+      return {
+        ...state,
+        pubDetail: action.pubDetail,
+      }
     default:
       return state
   }
@@ -80,4 +125,7 @@ export default combineReducers({
   nav,
   auth,
   feedData,
+  newsData,
+  beerData,
+  pubData,
 })

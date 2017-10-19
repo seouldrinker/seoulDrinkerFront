@@ -3,9 +3,9 @@ import { Image } from 'react-native'
 
 import { TabNavigator } from 'react-navigation'
 
-import FeedNavigator from './FeedNavigator'
+import Feed from '../container/feed'
 import Pub from '../container/pub'
-import Record from '../container/record'
+import News from '../container/news'
 import Beer from '../container/beer'
 import My from '../container/my'
 
@@ -14,12 +14,12 @@ import styles from '../styles/common'
 
 export default TabNavigator({
   Feed: {
-    screen: FeedNavigator,
+    screen: Feed,
     navigationOptions: {
       tabBarLabel: '피드',
       tabBarIcon: ({ tintColor }) => (
         <Image
-          source={require('../images/feed/feed.png')}
+          source={require('../images/common/feed.png')}
           style={[styles.naviIcon, {tintColor: tintColor}]}
         />
       ),
@@ -28,22 +28,11 @@ export default TabNavigator({
   Pub: {
     screen: Pub,
     navigationOptions: {
+      header: null,
       tabBarLabel: '펍',
       tabBarIcon: ({ tintColor }) => (
         <Image
-          source={require('../images/feed/pub.png')}
-          style={[styles.naviIcon, {tintColor: tintColor}]}
-        />
-      ),
-    }
-  },
-  Record: {
-    screen: Record,
-    navigationOptions: {
-      tabBarLabel: '기록',
-      tabBarIcon: ({ tintColor }) => (
-        <Image
-          source={require('../images/feed/record.png')}
+          source={require('../images/common/pub.png')}
           style={[styles.naviIcon, {tintColor: tintColor}]}
         />
       ),
@@ -52,10 +41,24 @@ export default TabNavigator({
   Beer: {
     screen: Beer,
     navigationOptions: {
+      header: null,
       tabBarLabel: '비어',
       tabBarIcon: ({ tintColor }) => (
         <Image
-          source={require('../images/feed/beer.png')}
+          source={require('../images/common/beer.png')}
+          style={[styles.naviIcon, {tintColor: tintColor}]}
+        />
+      ),
+    }
+  },
+  News: {
+    screen: News,
+    navigationOptions: {
+      header: null,
+      tabBarLabel: '뉴스',
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          source={require('../images/common/news.png')}
           style={[styles.naviIcon, {tintColor: tintColor}]}
         />
       ),
@@ -64,10 +67,11 @@ export default TabNavigator({
   My: {
     screen: My,
     navigationOptions: {
+      header: null,
       tabBarLabel: '마이',
       tabBarIcon: ({ tintColor }) => (
         <Image
-          source={require('../images/feed/my.png')}
+          source={require('../images/common/my.png')}
           style={[styles.naviIcon, {tintColor: tintColor}]}
         />
       ),
@@ -75,7 +79,9 @@ export default TabNavigator({
   },
 }, {
   tabBarPosition: 'bottom',
-  animationEnabled: true,
+  animationEnabled: false,
+  swipeEnabled: false,
+  lazy: false,
   tabBarOptions: {
     activeTintColor: '#eea51b',
     inactiveTintColor: '#bcbcbc',
@@ -94,6 +100,6 @@ export default TabNavigator({
     },
     style: {
       backgroundColor: '#fff',
-    }
+    },
   },
 })

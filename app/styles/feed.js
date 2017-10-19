@@ -22,6 +22,7 @@ export default StyleSheet.create({
     paddingTop: 18,
   },
   feedHeaderContentsName: {
+    color: '#000',
     fontWeight: '900',
   },
   feedHeaderContentsDate: {
@@ -55,6 +56,7 @@ export default StyleSheet.create({
   feedContentsContainer: {
     paddingTop: 18,
     paddingLeft: 18,
+    paddingRight: 18,
     backgroundColor: '#fff',
   },
   feedContentsPubContainer: {

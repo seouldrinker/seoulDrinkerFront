@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, View, Image, Text, } from 'react-native'
+import { TouchableOpacity, ScrollView, View, Image, Text, } from 'react-native'
 
 import styles from '../../styles/feed'
 
@@ -19,7 +19,7 @@ export default class FeedContentsComponent extends Component {
         </View>
         <View style={ styles.feedContentsBeerContainer }>
           <Image style={{ marginTop: 4 }} source={require('../../images/feed/feed_place.png')} />
-          <View style={{ flexDirection: 'row', }}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row', }}>
             {
               this.props.beers.map((v, k) => {
                 return (
@@ -29,7 +29,7 @@ export default class FeedContentsComponent extends Component {
                 )
               })
             }
-          </View>
+          </ScrollView>
         </View>
         <View style={ styles.feedContentsContextContainer }>
           <Text style={ styles.feedContentsContext }>{this.props.context}</Text>

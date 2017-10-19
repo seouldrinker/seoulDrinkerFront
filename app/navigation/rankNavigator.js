@@ -3,41 +3,41 @@ import { Image } from 'react-native'
 
 import { TabNavigator } from 'react-navigation'
 
-import FeedList from '../container/feed/feedList'
-import FeedMap from '../container/feed/feedMap'
+import PubRank from '../container/rank/pubRank'
+import BeerRank from '../container/rank/beerRank'
 
 
 export default TabNavigator({
-  FeedList: {
-    screen: FeedList,
-    navigationOptions: { tabBarLabel: '목록으로 보기' }
+  PubRank: {
+    screen: PubRank,
+    navigationOptions: { tabBarLabel: 'Pub' }
   },
-  FeedMap: {
-    screen: FeedMap,
-    navigationOptions: { tabBarLabel: '지도로 보기' }
+  BeerRank: {
+    screen: BeerRank,
+    navigationOptions: { tabBarLabel: 'Beer' }
   },
 }, {
   tabBarPosition: 'top',
   animationEnabled: false,
   swipeEnabled: false,
   lazy: false,
-  backBehavior: false,
   tabBarOptions: {
+    upperCaseLabel: false,
     activeTintColor: '#fff',
-    inactiveTintColor: '#bcbcbc',
+    inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
     showIcon: false,
     tabStyle: {
       flexDirection: 'column',
       height: 40,
     },
     labelStyle: {
-      fontSize: 14,
+      fontSize: 16,
     },
     indicatorStyle: {
       backgroundColor: '#fff',
     },
     style: {
-      backgroundColor: '#eea51b',
+      backgroundColor: '#ee741b',
     }
   },
 })

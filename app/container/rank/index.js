@@ -4,11 +4,22 @@ import {
   View,
   Image
 } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 
-import styles from '../styles/common'
+import styles from '../../styles/common'
 
-export default class My extends Component {
+export default class Rank extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      user: null
+    }
+  }
   static navigationOptions = {
+  }
+
+  componentDidMount () {
+    // console.log(this.props.screenProps.user)
   }
 
   render() {
