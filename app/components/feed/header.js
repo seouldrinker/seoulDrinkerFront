@@ -8,11 +8,6 @@ import styles from '../../styles/feed'
 export default class FeedHeaderComponent extends Component {
   constructor (props) {
     super(props)
-    this._onPressButton = this._onPressButton.bind(this)
-  }
-
-  _onPressButton () {
-    alert(this.props.feedId)
   }
 
   render () {
@@ -27,14 +22,21 @@ export default class FeedHeaderComponent extends Component {
           <Text style={ styles.feedHeaderContentsName }>{this.props.name}</Text>
           <Text style={ styles.feedHeaderContentsDate }>{makeTimer(this.props.date)}</Text>
         </View>
-        <View style={ styles.feedHeaderModal }>
-          <TouchableOpacity onPress={this._onPressButton} style={ styles.feedHeaderModalTouchable }>
-            <Image
-              style={ styles.feedHeaderModalImage }
-              source={require('../../images/feed/more.png')}
-            />
-          </TouchableOpacity>
-        </View>
+        {
+          (this.props.signedUpUserId === this.props.feedUserId) ? (
+            <View style={ styles.feedHeaderModal }>
+              <TouchableOpacity onPress={() => {
+                  this.props.pressTooltipButton(!this.props.tooltipOn)
+                }}
+                style={ styles.feedHeaderModalTouchable }>
+                <Image
+                  style={ styles.feedHeaderModalImage }
+                  source={require('../../images/feed/more.png')}
+                />
+              </TouchableOpacity>
+            </View>
+          ) : null
+        }
       </View>
     )
   }
