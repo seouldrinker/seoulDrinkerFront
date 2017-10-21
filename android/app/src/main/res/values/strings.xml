@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">seoulDrinker</string>
+    <string name="app_name">SeoulDrinker</string>
     <string name="fb_app_id">213988269138878</string>
     <string name="fb_login_protocol_scheme">fb213988269138878</string>
 </resources>
