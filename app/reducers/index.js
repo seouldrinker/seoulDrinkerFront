@@ -3,8 +3,7 @@ import { combineReducers } from 'redux'
 import { AppNavigator } from '../navigation/appNavigator'
 
 
-const initialAuthState = { user: null, platform: null, isLoggedIn: false,
-  feedList: null }
+const initialAuthState = { user: null, platform: null, isLoggedIn: false, }
 const initialFeedListState = { feedList: null, currentPage: null,
   totalPage: null }
 const initialNewsListState = { newsList: null, currentPage: null,
@@ -62,6 +61,19 @@ const feedData = (state = initialFeedListState, action) => {
         currentPage: action.currentPage,
         totalPage: action.totalPage,
       }
+    case 'DELETE_FEED':
+      const deleteNewFeedList = Object.assign([], state.feedList)
+      const deletedFeedIndex = state.feedList.findIndex(feed => {
+        return feed._id === action.feedId
+      })
+      if (deletedFeedIndex > -1) {
+        deleteNewFeedList.splice(deletedFeedIndex, 1)
+        return {
+          ...state,
+          feedList: deleteNewFeedList,
+        }
+      }
+      return state
     default:
       return state
   }

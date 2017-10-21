@@ -14,6 +14,8 @@ import { bindActionCreators } from 'redux'
 import { addNavigationHelpers, } from 'react-navigation'
 import ImagePicker from 'react-native-image-picker'
 
+import { STATIC_URL } from '../../../config/config'
+
 import * as actions from "../../actions"
 
 import styles from '../../styles/common'
@@ -38,10 +40,6 @@ class Record extends Component {
       newBeers: [],
       newPub: null,
     }
-
-    this.props.navigation.setParams({
-      handleInsertFeed: this.handleInsertFeed.bind(this),
-    })
   }
   static navigationOptions = ({ navigation, screenProps }) => ({
     headerTitle: <Text style={{ fontSize: 20, fontWeight: '600', color: '#000' }}>벌컥 기록</Text>,
@@ -52,8 +50,12 @@ class Record extends Component {
       </TouchableOpacity>
     ),
     headerRight: (
-      <TouchableOpacity onPress={() => navigation.state.params.handleInsertFeed() }>
-        <Text style={{ marginRight: 18, fontSize: 20, fontWeight: '400', color: '#000' }}>게시</Text>
+      <TouchableOpacity onPress={() => navigation.state.params.handleSaveFeed() }>
+        <Text style={{ marginRight: 18, fontSize: 20, fontWeight: '400', color: '#000' }}>
+          {
+            (navigation.state.params && navigation.state.params.data) ? '수정' : '게시'
+          }
+        </Text>
       </TouchableOpacity>
     ),
     headerTintColor: '#949494',
@@ -64,11 +66,30 @@ class Record extends Component {
   })
 
   componentDidMount() {
+    const navigation = this.props.navigation
+    if (navigation && navigation.state && navigation.state.params
+      && navigation.state.params.data) {
+      this.setState({
+        context: navigation.state.params.data.context,
+        imageSource: {
+          uri: `${STATIC_URL}/${navigation.state.params.data.image}`
+        },
+        newBeers: navigation.state.params.data.beers,
+        newPub: navigation.state.params.data.pub,
+      })
+    }
+
+    navigation.setParams({
+      handleSaveFeed: this.handleSaveFeed.bind(this),
+    })
+
     this.props.getPubList()
     this.props.getBeerList()
   }
 
-  handleInsertFeed () {
+  handleSaveFeed () {
+    const navigation = this.props.navigation
+
     const _id = this.props.auth.signedUpUser ?
       this.props.auth.signedUpUser._id : null
     const beer_ids = this.state.newBeers ?
@@ -80,6 +101,9 @@ class Record extends Component {
     const context = this.state.context
     const feedImage = (this.state.imageSource) ?
       this.state.imageSource : null
+    const protocol = (feedImage && feedImage.uri)
+      ? feedImage.uri.split("://")[0]
+      : null
 
     if (!_id || !pub_id || !beer_ids || !context || !feedImage) {
       alert('항목을 모두 입력해주세요!')
@@ -93,24 +117,42 @@ class Record extends Component {
       data.append('beer_ids', beer_ids[i])
     }
     data.append('context', context)
-    data.append('feedImage', {
-      uri: feedImage.uri,
-      type: feedImage.type,
-      name: _id,
-    })
-
-    this.props.addFeed(data, () => {
-      this.setState({
-        imageSource: null,
-        context: null,
-        beerModalVisible: false,
-        pubModalVisible: false,
-        newBeers: [],
-        newPub: null,
+    if (protocol && protocol !== 'http' && protocol !== 'https') {
+      data.append('feedImage', {
+        uri: feedImage.uri,
+        type: feedImage.type || 'image/jpeg',
+        name: _id,
       })
-      this.props.getFeedList()
-      this.props.navigation.goBack(null)
-    })
+    }
+
+    if (navigation && navigation.state && navigation.state.params
+      && navigation.state.params.data) {
+      this.props.modifyFeed(navigation.state.params.data._id, data, () => {
+        this.setState({
+          imageSource: null,
+          context: null,
+          beerModalVisible: false,
+          pubModalVisible: false,
+          newBeers: [],
+          newPub: null,
+        })
+        this.props.getFeedList()
+        this.props.navigation.goBack(null)
+      })
+    } else {
+      this.props.addFeed(data, () => {
+        this.setState({
+          imageSource: null,
+          context: null,
+          beerModalVisible: false,
+          pubModalVisible: false,
+          newBeers: [],
+          newPub: null,
+        })
+        this.props.getFeedList()
+        this.props.navigation.goBack(null)
+      })
+    }
   }
 
   selectPhoto() {

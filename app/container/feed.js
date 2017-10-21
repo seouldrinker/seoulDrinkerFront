@@ -60,11 +60,20 @@ class Feed extends Component {
         rowHasChanged: (r1, r2) => r1 !== r2
       })
 
+      let signedUpUserId = null
+      if (this.props.auth && this.props.auth.signedUpUser) {
+        signedUpUserId = this.props.auth.signedUpUser.id
+      }
       return (
         <View>
           <ListView
             dataSource={ds.cloneWithRows(this.props.feedData.feedList)}
-            renderRow={rowData => {return <FeedComponent data={rowData} />}}
+            renderRow={rowData => {return <FeedComponent
+              data={rowData}
+              deleteFeed={this.props.deleteFeed}
+              navigation={this.props.navigation}
+              signedUpUserId={signedUpUserId}
+              />}}
           />
         </View>
       )

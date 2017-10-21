@@ -42,6 +42,13 @@ function _addFeedList({feedList, currentPage, totalPage}) {
   }
 }
 
+function _deleteFeed(feedId) {
+  return {
+    type: 'DELETE_FEED',
+    feedId,
+  }
+}
+
 function _setNewsList(newsList) {
   return {
     type: 'SET_NEWS_LIST',
@@ -122,6 +129,37 @@ export function addFeed(data, cb) {
         && cb
         && typeof cb === 'function') {
         cb()
+      }
+    })
+  }
+}
+
+export function modifyFeed(feedId, data, cb) {
+  debugger
+  return (dispatch, getState) => {
+    _actionsProvider({
+      method: 'PUT',
+      url: `${API_URL}/feed/${feedId}`,
+      data,
+    }, (results) => {
+      if (results.data.results.nModified === 1
+        && results.data.results.ok === 1
+        && cb
+        && typeof cb === 'function') {
+        cb()
+      }
+    })
+  }
+}
+
+export function deleteFeed(_id) {
+  return (dispatch, getState) => {
+    _actionsProvider({
+      method: 'DELETE',
+      url: `${API_URL}/feed/${_id}`,
+    }, (results) => {
+      if (results.data && results.data.results && results.data.results.ok === 1) {
+          dispatch(_deleteFeed(_id))
       }
     })
   }
