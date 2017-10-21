@@ -214,7 +214,9 @@ class Record extends Component {
             <View style={{ }}>
             {
               this.state.imageSource === null ?
-                <Text>Select a Photo</Text> :
+              <Image style={{ width: 100, height: 100, margin: 16 }} source={
+                  require('../../images/record/default.png')
+                } /> :
                 <Image style={{ width: 100, height: 100, margin: 16 }} source={{
                   uri: this.state.imageSource.uri
                 }} />
