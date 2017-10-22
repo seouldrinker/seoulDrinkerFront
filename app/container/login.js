@@ -185,27 +185,25 @@ class Login extends Component {
   render () {
     return (
       <Image style={styles.container}
-        source={require('../images/login/background.jpg')}>
+        source={require('../images/login/background.png')}>
         <Image style={styles.logo}
           source={require('../images/login/logo.png')} />
-        <Image style={styles.comment}
-          source={require('../images/login/comment.png')} />
         <View style={styles.loginButtonList}>
-          <TouchableOpacity style={styles.loginButton}
+          <TouchableOpacity style={[styles.loginButton, {backgroundColor: '#3e5ccb'}]}
             onPress={this.onFbLogin.bind(this)}>
             <Image
               style={styles.loginButtonImage}
               source={require('../images/login/facebook.png')}
             />
-          <Text>페이스북으로 시작하기</Text>
+          <Text style={{ color: '#fff', fontWeight: '800', }}>페이스북으로 시작하기</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton}
+          <TouchableOpacity style={[styles.loginButton, {backgroundColor: '#ee741b'}]}
             onPress={this.onGoogleLogin.bind(this)}>
             <Image
               style={styles.loginButtonImage}
               source={require('../images/login/google.png')}
             />
-          <Text>구글 계정으로 시작하기</Text>
+          <Text style={{ color: '#fff', fontWeight: '800', }}>구글 계정으로 시작하기</Text>
           </TouchableOpacity>
         </View>
       </Image>

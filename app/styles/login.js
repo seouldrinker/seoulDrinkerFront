@@ -18,7 +18,7 @@ export default StyleSheet.create({
     width: 265,
   },
   loginButtonList: {
-    marginTop: 80,
+    marginTop: 144,
   },
   loginButton: {
     width: 290,
