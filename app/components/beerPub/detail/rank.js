@@ -30,11 +30,11 @@ export default class BeerPubDetailRankComponent extends Component {
           <Image style={{ width: 12, height: 20, marginLeft: 12, marginRight: 12 }}
             source={require('../../../images/common/black_rank.png')} />
           <Text style={{ marginLeft: 15, color: '#000', fontSize: 14,
-            fontWeight: '600', }}>랭킹 {}위</Text>
+            fontWeight: '600', }}>랭킹 {this.props.rank}위</Text>
           <Text style={{ marginLeft: 12, color: '#ee741b', fontSize: 14,
             fontWeight: '600', }}>{feedList.length}번 벌컥!</Text>
         </View>
-        <View style={{ height: 300, marginTop: 15, }}>
+        <View style={{ marginTop: 15, }}>
           {
             filteredFeedList.map((v, k) => {
               return (

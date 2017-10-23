@@ -31,12 +31,12 @@ export default class BeerPubDetailComponent extends Component {
           )
         }
         <BeerPubDetailContextBodyComponent
-          data={this.props.data}
+          data={this.props.data} isBeer={this.props.isBeer}
           />
         {
           (this.props.data.feedList && this.props.data.feedList.length > 0) ? (
             <BeerPubDetailRankComponent
-              data={this.props.data}
+              data={this.props.data} rank={this.props.rank}
               />
           ) : null
         }

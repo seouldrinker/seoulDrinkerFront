@@ -9,9 +9,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import MainNavigator from './mainNavigator'
-import RankNavigator from './rankNavigator'
 import Login from '../container/login'
 import Record from '../container/record'
+import PubRank from '../container/rank/pubRank'
+import BeerRank from '../container/rank/beerRank'
 import PubDetail from '../container/pub/pubDetail'
 import BeerDetail from '../container/beer/beerDetail'
 
@@ -34,12 +35,7 @@ export const AppNavigator = StackNavigator({
         </TouchableOpacity>
       ),
       headerRight: (
-        <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.navigate({
-          routeName: 'Rank',
-        }))}>
-          <Image source={require('../images/common/rank.png')}
-            style={{ marginRight: 25, }}/>
-        </TouchableOpacity>
+        <Text style={{ marginRight: 25 }}></Text>
       ),
       headerStyle: {
         backgroundColor: '#eea51b',
@@ -53,10 +49,13 @@ export const AppNavigator = StackNavigator({
       header: null
     }
   },
-  Rank: {
-    screen: RankNavigator,
+  Record: {
+    screen: Record,
+  },
+  PubRank: {
+    screen: PubRank,
     navigationOptions: ({ navigation, screenProps }) => ({
-      headerTitle: <Text style={{ fontSize: 20, fontWeight: '600', color: '#fff' }}>Ranking</Text>,
+      headerTitle: <Text style={{ fontSize: 20, fontWeight: '600', color: '#fff' }}>Pub Ranking</Text>,
       headerTintColor: '#fff',
       headerStyle: {
         backgroundColor: '#ee741b',
@@ -64,8 +63,16 @@ export const AppNavigator = StackNavigator({
       }
     })
   },
-  Record: {
-    screen: Record,
+  BeerRank: {
+    screen: BeerRank,
+    navigationOptions: ({ navigation, screenProps }) => ({
+      headerTitle: <Text style={{ fontSize: 20, fontWeight: '600', color: '#fff' }}>Beer Ranking</Text>,
+      headerTintColor: '#fff',
+      headerStyle: {
+        backgroundColor: '#ee741b',
+        elevation: 0,
+      }
+    })
   },
   PubDetail: {
     screen: PubDetail,

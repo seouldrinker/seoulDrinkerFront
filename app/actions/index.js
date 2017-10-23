@@ -56,6 +56,13 @@ function _setNewsList(newsList) {
   }
 }
 
+function _setBeerRank(beerRank) {
+  return {
+    type: 'SET_BEER_RANK',
+    beerRank,
+  }
+}
+
 function _setBeerList({beerList, currentPage, totalPage}) {
   return {
     type: 'SET_BEER_LIST',
@@ -69,6 +76,13 @@ function _setBeerDetail(beerDetail) {
   return {
     type: 'SET_BEER_DETAIL',
     beerDetail,
+  }
+}
+
+function _setPubRank(pubRank) {
+  return {
+    type: 'SET_PUB_RANK',
+    pubRank,
   }
 }
 
@@ -192,6 +206,18 @@ export function getAllNewsList() {
   }
 }
 
+export function getBeerRank() {
+  let url = `${API_URL}/beer/rank`
+
+  return (dispatch, getState) => {
+    _actionsProvider({
+      url,
+    }, (results) => {
+      dispatch(_setBeerRank(results.data.results))
+    })
+  }
+}
+
 export function getBeerList(keyword) {
   let url = `${API_URL}/beer?type=all`
   url = keyword ? `${url}&keyword=${keyword}` : url
@@ -220,6 +246,18 @@ export function getBeerDetail(_id) {
 export function removeBeerDetail() {
   return (dispatch, getState) => {
     dispatch(_setBeerDetail(null))
+  }
+}
+
+export function getPubRank() {
+  let url = `${API_URL}/pub/rank`
+
+  return (dispatch, getState) => {
+    _actionsProvider({
+      url,
+    }, (results) => {
+      dispatch(_setPubRank(results.data.results))
+    })
   }
 }
 

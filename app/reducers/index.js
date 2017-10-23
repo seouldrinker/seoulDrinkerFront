@@ -8,9 +8,9 @@ const initialFeedListState = { feedList: null, currentPage: null,
   totalPage: null }
 const initialNewsListState = { newsList: null, currentPage: null,
   totalPage: null }
-const initialBeerListState = { beerList: null, beerDetail: null,
+const initialBeerListState = { beerRank: null, beerList: null, beerDetail: null,
   currentPage: null, totalPage: null }
-const initialPubListState = { pubList: null, pubDetail: null,
+const initialPubListState = { pubRank: null, pubList: null, pubDetail: null,
   currentPage: null, totalPage: null }
 
 const nav = (state, action) => {
@@ -96,6 +96,11 @@ const newsData = (state = initialNewsListState, action) => {
 
 const beerData = (state = initialBeerListState, action) => {
   switch (action.type) {
+    case 'SET_BEER_RANK':
+      return {
+        ...state,
+        beerRank: action.beerRank,
+      }
     case 'SET_BEER_LIST':
       return {
         ...state,
@@ -116,6 +121,11 @@ const beerData = (state = initialBeerListState, action) => {
 
 const pubData = (state = initialPubListState, action) => {
   switch (action.type) {
+    case 'SET_PUB_RANK':
+      return {
+        ...state,
+        pubRank: action.pubRank,
+      }
     case 'SET_PUB_LIST':
       return {
         ...state,

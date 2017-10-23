@@ -21,6 +21,7 @@ class PubDetail extends Component {
   constructor(props) {
     super(props)
     this.backPage = this.backPage.bind(this)
+    this.getRankDetail = this.getRankDetail.bind(this)
 
     this.props.navigation.setParams({
       initPubDetail: this.props.getPubDetail,
@@ -39,8 +40,17 @@ class PubDetail extends Component {
     return true
   }
 
+  getRankDetail() {
+    const index = this.props.pubRank.findIndex((v, k) => {
+      return v.pub._id === this.props.navigation.state.params._id
+    })
+    return this.props.pubRank[index].rank
+  }
+
   render() {
     const pub = this.props.pubDetail
+    const rank = this.getRankDetail()
+
     if (pub) {
       return (
         <ParallaxScrollView
@@ -82,7 +92,7 @@ class PubDetail extends Component {
             </View>
           )}
         >
-        <BeerPubDetailComponent data={pub} isBeer={false} />
+        <BeerPubDetailComponent data={pub} isBeer={false} rank={rank} />
       </ParallaxScrollView>
       )
     } else {
@@ -99,6 +109,7 @@ export default connect(state => ({
   nav: state.nav,
   auth: state.auth,
   pubDetail: state.pubData.pubDetail,
+  pubRank: state.pubData.pubRank,
 }), dispatch => (
   bindActionCreators(actions, dispatch)
 ))(PubDetail)

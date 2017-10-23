@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
   Text,
   View,
-  Image,
+  ListView,
   Dimensions,
 } from 'react-native'
 import { connect } from 'react-redux'
@@ -12,19 +12,31 @@ import * as actions from "../../actions"
 import { STATIC_URL } from '../../../config/config'
 const { width, height } = Dimensions.get('window')
 
+import RankComponent from '../../components/rank'
+
 class BeerRank extends Component {
   constructor(props) {
     super(props)
   }
 
-  componentWillMount() {
-    this.props.getBeerList()
-  }
-
   render() {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    })
+
     return (
-      <View>
-        <Text>test</Text>
+      <View style={{ backgroundColor: '#fff', }}>
+        <ListView
+          dataSource={ds.cloneWithRows(this.props.beerRank)}
+          style={{ paddingTop: 10, }}
+          renderRow={rowData => {
+            return <RankComponent
+              rank={rowData}
+              navigation={this.props.navigation}
+              isBeer={true}
+            />
+          }}
+        />
       </View>
     )
   }
@@ -33,7 +45,7 @@ class BeerRank extends Component {
 export default connect(state => ({
   nav: state.nav,
   auth: state.auth,
-  beerData: state.beerData,
+  beerRank: state.beerData.beerRank,
 }), dispatch => (
   bindActionCreators(actions, dispatch)
 ))(BeerRank)

@@ -6,6 +6,7 @@ import {
   ListView,
   TextInput,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -58,10 +59,15 @@ class Pub extends Component {
         rowHasChanged: (r1, r2) => r1 !== r2
       })
       return (
-        <View>
-          <View style={{ backgroundColor: '#eea51b', height: 56, elevation: 8, }}>
-            <Text style={{ marginTop: 14, marginLeft: 60, color: '#fff',
+        <View style={{ marginBottom: 56 }}>
+          <View style={{ flexDirection: 'row', backgroundColor: '#eea51b',
+            height: 56, elevation: 8, }}>
+            <Text style={{ flex: 16, marginTop: 14, marginLeft: 60, color: '#fff',
               fontSize: 20, fontWeight: '600' }}>Pub</Text>
+            <TouchableOpacity style={{ flex: 2, marginTop: 17, }}
+              onPress={() => this.props.navigation.navigate('PubRank')}>
+              <Image source={require('../../images/common/rank.png')} />
+            </TouchableOpacity>
           </View>
           <ScrollView style={{ backgroundColor: '#fff' }}>
             <View style={{ flexDirection: 'row', height: 60, borderBottomWidth: 1,
