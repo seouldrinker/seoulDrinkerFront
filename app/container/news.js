@@ -34,7 +34,7 @@ class News extends Component {
       })
 
       return (
-        <View>
+        <View style={{ marginBottom: 56 }}>
           <View style={{ backgroundColor: '#eea51b', height: 56, elevation: 8, }}>
             <Text style={{ marginTop: 14, marginLeft: 60, color: '#fff',
               fontSize: 20, fontWeight: '600', }}>News</Text>
