@@ -41,6 +41,7 @@ export default class FeedComponent extends Component {
             pub={this.props.data.pub}
             beers={this.props.data.beers}
             context={this.props.data.context}
+            navigation={this.props.navigation}
           />
           {
             this.state.tooltipOn ? (
