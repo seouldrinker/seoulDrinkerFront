@@ -48,6 +48,8 @@ class Feed extends Component {
       return 0
     }
     this.props.getFeedList()
+    this.props.getPubRank()
+    this.props.getBeerRank()
   }
 
   componentWillUnmount() {
