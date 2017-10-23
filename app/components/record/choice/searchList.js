@@ -35,42 +35,8 @@ export default class SearchHeader extends Component {
   }
 
   render() {
-    const default_image = this.props.isBeer ?
-      require('../../../images/record/default_beer.png'):
-      require('../../../images/record/default_pub.png')
-
     return (
       <ScrollView style={{ marginTop: 18 }}>
-        <TouchableOpacity style={{}}
-          onPress={() => {
-
-          }}>
-          <View style={{ flexDirection: 'row', marginLeft: 10, marginRight: 10,
-            marginTop: 4, marginBottom: 4, }}>
-            <Image style={{ width: 56, height: 56, marginLeft: 12, marginRight: 12 }}
-              source={default_image} />
-            <View style={{ marginTop: 8, marginLeft: 10 }}>
-              <Text style={{ color: '#000', fontWeight: '600', }}>
-                {
-                  this.props.isBeer ? (
-                    '어떤 맥주'
-                  ) : (
-                    '서울 어딘가'
-                  )
-                }
-              </Text>
-              <Text style={{ marginTop: 2, fontSize: 14 }}>
-                {
-                  this.props.isBeer ? (
-                    '아래 목록에 없는 어떤 맛있는 맥주'
-                  ) : (
-                    '아래 목록에 없는 어떤 멋진 펍!'
-                  )
-                }
-              </Text>
-            </View>
-          </View>
-        </TouchableOpacity>
         {
           this.props.itemList.map((v, k) => {
             const isChoice = (this.props.isBeer ?
