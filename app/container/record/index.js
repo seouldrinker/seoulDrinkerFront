@@ -150,6 +150,8 @@ class Record extends Component {
           newPub: null,
         })
         this.props.getFeedList()
+        this.props.getPubRank()
+        this.props.getBeerRank()
         this.props.navigation.goBack(null)
       })
     }
