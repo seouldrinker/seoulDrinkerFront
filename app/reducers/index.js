@@ -3,15 +3,14 @@ import { combineReducers } from 'redux'
 import { AppNavigator } from '../navigation/appNavigator'
 
 
-const initialAuthState = { user: null, platform: null, isLoggedIn: false, }
+const initialAuthState = { user: null, platform: null, isLoggedIn: false,
+  feedList: null, pubCounter: null, beerCounter: null, }
 const initialFeedListState = { feedList: null, currentPage: null,
   totalPage: null }
 const initialNewsListState = { newsList: null, currentPage: null,
   totalPage: null }
-const initialBeerListState = { beerRank: null, beerList: null, beerDetail: null,
-  currentPage: null, totalPage: null }
-const initialPubListState = { pubRank: null, pubList: null, pubDetail: null,
-  currentPage: null, totalPage: null }
+const initialBeerListState = { beerRank: null, beerList: null, beerDetail: null, }
+const initialPubListState = { pubRank: null, pubList: null, pubDetail: null, }
 
 const nav = (state, action) => {
   const newState = AppNavigator.router.getStateForAction(action, state)
@@ -39,6 +38,13 @@ const auth = (state = initialAuthState, action) => {
       return {
         ...state,
         signedUpUser: action.signedUpUser,
+      }
+    case 'SET_USER_DETAIL':
+      return {
+        ...state,
+        feedList: action.feedList,
+        pubCounter: action.pubCounter,
+        beerCounter: action.beerCounter,
       }
     default:
       return state
@@ -105,8 +111,6 @@ const beerData = (state = initialBeerListState, action) => {
       return {
         ...state,
         beerList: action.beerList,
-        currentPage: action.currentPage,
-        totalPage: action.totalPage,
       }
     case 'SET_BEER_DETAIL':
       return {
@@ -130,8 +134,6 @@ const pubData = (state = initialPubListState, action) => {
       return {
         ...state,
         pubList: action.pubList,
-        currentPage: action.currentPage,
-        totalPage: action.totalPage,
       }
     case 'SET_PUB_DETAIL':
       return {
