@@ -63,12 +63,10 @@ function _setBeerRank(beerRank) {
   }
 }
 
-function _setBeerList({beerList, currentPage, totalPage}) {
+function _setBeerList(beerList) {
   return {
     type: 'SET_BEER_LIST',
-    beerList,
-    currentPage,
-    totalPage,
+    beerList
   }
 }
 
@@ -86,12 +84,10 @@ function _setPubRank(pubRank) {
   }
 }
 
-function _setPubList({pubList, currentPage, totalPage}) {
+function _setPubList(pubList) {
   return {
     type: 'SET_PUB_LIST',
-    pubList,
-    currentPage,
-    totalPage,
+    pubList
   }
 }
 
@@ -99,6 +95,36 @@ function _setPubDetail(pubDetail) {
   return {
     type: 'SET_PUB_DETAIL',
     pubDetail,
+  }
+}
+
+function _setUserDetail(feedList, pubCounter, beerCounter) {
+  return {
+    type: 'SET_USER_DETAIL',
+    feedList,
+    pubCounter,
+    beerCounter,
+  }
+}
+
+function _setMyFeed(myFeed) {
+  return {
+    type: 'SET_MY_FEED',
+    myFeed,
+  }
+}
+
+function _setMyPub(myPub) {
+  return {
+    type: 'SET_MY_PUB',
+    myPub,
+  }
+}
+
+function _setMyBeer(myBeer) {
+  return {
+    type: 'SET_MY_BEER',
+    myBeer,
   }
 }
 
@@ -149,7 +175,6 @@ export function addFeed(data, cb) {
 }
 
 export function modifyFeed(feedId, data, cb) {
-  debugger
   return (dispatch, getState) => {
     _actionsProvider({
       method: 'PUT',
@@ -289,5 +314,41 @@ export function getPubDetail(_id) {
 export function removePubDetail() {
   return (dispatch, getState) => {
     dispatch(_setPubDetail(null))
+  }
+}
+
+export function getUserDetail(_id) {
+  const url = `${API_URL}/user/${_id}`
+
+  return (dispatch, getState) => {
+    _actionsProvider({
+      url,
+    }, (results) => {
+      let pubCounter = {}
+      let beerCounter = {}
+      const feedList = results.data.results._feeds
+      feedList.map((v, k) => {
+        if (pubCounter[v.pub._id] && pubCounter[v.pub._id]['count']) {
+          pubCounter[v.pub._id]['count']++
+        } else {
+          pubCounter[v.pub._id] = {
+            count: 1,
+            pub: v.pub,
+          }
+        }
+
+        v.beers.map((v2, k2) => {
+          if (beerCounter[v2._id] && beerCounter[v2._id]['count']) {
+            beerCounter[v2._id]['count']++
+          } else {
+            beerCounter[v2._id] = {
+              count: 1,
+              beer: v2,
+            }
+          }
+        })
+      })
+      dispatch(_setUserDetail(feedList, pubCounter, beerCounter))
+    })
   }
 }
