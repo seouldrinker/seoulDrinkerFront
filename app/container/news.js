@@ -40,8 +40,13 @@ class News extends Component {
               fontSize: 20, fontWeight: '600', }}>News</Text>
           </View>
           <ListView
+            enableEmptySections={true}
             dataSource={ds.cloneWithRows(this.props.newsData.newsList)}
-            renderRow={rowData => {return <NewsComponent data={rowData} />}}
+            renderRow={rowData => {
+              return rowData ? (
+                <NewsComponent data={rowData} />
+              ) : null
+            }}
           />
         </View>
       )

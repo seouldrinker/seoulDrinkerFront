@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, View, ListView, Image, Text } from 'react-native'
+import { TouchableOpacity, View, Image, Text } from 'react-native'
 
 import { makeTimer } from '../common'
 
