@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, View, ListView, Image, Text } from 'react-native'
+import { TouchableOpacity, View, Image, Text } from 'react-native'
 
 import { makeTimer } from '../common'
 
 import styles from '../../styles/feed'
+
+import { STATIC_URL} from '../../../config/config'
 
 export default class FeedHeaderComponent extends Component {
   constructor (props) {
@@ -11,12 +13,18 @@ export default class FeedHeaderComponent extends Component {
   }
 
   render () {
+    const feedProfileImage = this.props.picture ?
+      this.props.picture.split('http').length < 2 ?
+        { uri: `${STATIC_URL}/${this.props.picture}` } :
+        { uri: `${this.props.picture}` } :
+      require('../../images/feed/default_profile.png')
+
     return (
       <View style={ styles.feedHeaderContainer }>
         <View style={ styles.feedHeaderImageContainer }>
           <Image
             style={ styles.feedHeaderImage }
-            source={{ uri: `${this.props.picture}` }} />
+            source={ feedProfileImage } />
         </View>
         <View style={ styles.feedHeaderContentsContainer }>
           <Text style={ styles.feedHeaderContentsName }>{this.props.name}</Text>

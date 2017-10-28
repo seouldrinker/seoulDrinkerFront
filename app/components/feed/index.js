@@ -4,7 +4,7 @@ import { View, TouchableHighlight } from 'react-native'
 import FeedHeaderComponent from './header'
 import FeedImagesComponent from './images'
 import FeedContentsComponent from './contents'
-import Tooltip from './tooltip'
+import FeedTooltip from './tooltip'
 
 export default class FeedComponent extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export default class FeedComponent extends Component {
             date={this.props.data.udt_dt}
             picture={this.props.data.user.picture}
             name={this.props.data.user.name}
-            feedUserId={this.props.data.user.id}
+            feedUserId={this.props.data.user._id}
             signedUpUserId={this.props.signedUpUserId}
             tooltipOn={this.state.tooltipOn}
             pressTooltipButton={this.pressTooltipButton}
@@ -45,7 +45,7 @@ export default class FeedComponent extends Component {
           />
           {
             this.state.tooltipOn ? (
-              <Tooltip
+              <FeedTooltip
                 data={this.props.data}
                 pressTooltipButton={this.pressTooltipButton}
                 deleteFeed={this.props.deleteFeed}

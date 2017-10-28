@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Alert, TouchableOpacity, View, Text } from 'react-native'
 
-export default class ToolTip extends Component {
+export default class FeedToolTip extends Component {
   constructor (props) {
     super(props)
 

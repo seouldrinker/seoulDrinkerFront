@@ -48,6 +48,8 @@ class Feed extends Component {
       return 0
     }
     this.props.getFeedList()
+    this.props.getPubList()
+    this.props.getBeerList()
     this.props.getPubRank()
     this.props.getBeerRank()
   }
@@ -64,18 +66,24 @@ class Feed extends Component {
 
       let signedUpUserId = null
       if (this.props.auth && this.props.auth.signedUpUser) {
-        signedUpUserId = this.props.auth.signedUpUser.id
+        signedUpUserId = this.props.auth.signedUpUser._id
       }
+
       return (
         <View>
           <ListView
+            enableEmptySections={true}
             dataSource={ds.cloneWithRows(this.props.feedData.feedList)}
-            renderRow={rowData => {return <FeedComponent
-              data={rowData}
-              deleteFeed={this.props.deleteFeed}
-              navigation={this.props.navigation}
-              signedUpUserId={signedUpUserId}
-              />}}
+            renderRow={rowData => {
+              return rowData ? (
+                <FeedComponent
+                  data={rowData}
+                  deleteFeed={this.props.deleteFeed}
+                  navigation={this.props.navigation}
+                  signedUpUserId={signedUpUserId}
+                />
+              ): null
+            }}
           />
         </View>
       )

@@ -14,14 +14,10 @@ export default class FeedImagesComponent extends Component {
 
   render() {
     return (
-      <View style={{ width, height: width,
-        borderTopWidth: 1, borderTopColor: '#EEEEEE',
-        borderBottomWidth: 1, borderBottomColor: '#EEEEEE' }}>
-        <Image
-          resizeMode="stretch"
-          style={{ width, height: width }}
-          source={{ uri: `${STATIC_URL}/${this.props.image}` }} />
-      </View>
+      <Image
+        resizeMode="stretch"
+        style={{ width, height: width, }}
+        source={{ uri: `${STATIC_URL}/${this.props.image}` }} />
     )
   }
 }
