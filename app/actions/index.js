@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { FBLoginManager } from 'react-native-facebook-login'
+import { GoogleSignin } from 'react-native-google-signin'
 
 import { ROOT_URL, STATIC_URL, API_URL } from '../../config/config'
 
@@ -11,7 +13,7 @@ export function setLogin(user, platform) {
   }
 }
 
-export function setLogout() {
+function _setLogout() {
   return {
     type: 'LOGOUT',
   }
@@ -145,6 +147,29 @@ function _actionsProvider(options, cb) {
   }).catch((err) => console.log(err))
 }
 
+export function onFbLogout () {
+  return (dispatch, getState) => {
+    FBLoginManager.logout((error, user) => {
+      if (!error) {
+        dispatch(_setLogout())
+        console.log('facebook logout!')
+      } else {
+        console.log(error, user)
+      }
+    })
+  }
+}
+
+export function onGoogleLogout () {
+  return (dispatch, getState) => {
+    GoogleSignin.revokeAccess()
+      .then(() => {
+      dispatch(_setLogout())
+      console.log('google logout!')
+    }).done()
+  }
+}
+
 export function addUser(params) {
   return (dispatch, getState) => {
     _actionsProvider({
@@ -153,6 +178,23 @@ export function addUser(params) {
       params,
     }, (results) => {
       dispatch(_signedUpUser(results.data.results))
+    })
+  }
+}
+
+export function changeProfile(user_id, data, cb) {
+  return (dispatch, getState) => {
+    _actionsProvider({
+      method: 'PUT',
+      url: `${API_URL}/user/${user_id}/profile`,
+      data,
+    }, (results) => {
+      if (results.data.results.nModified === 1
+        && results.data.results.ok === 1
+        && cb
+        && typeof cb === 'function') {
+        cb()
+      }
     })
   }
 }
