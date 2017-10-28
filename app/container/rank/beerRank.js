@@ -24,21 +24,28 @@ class BeerRank extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     })
 
-    return (
-      <View style={{ backgroundColor: '#fff', }}>
-        <ListView
-          dataSource={ds.cloneWithRows(this.props.beerRank)}
-          style={{ paddingTop: 10, }}
-          renderRow={rowData => {
-            return <RankComponent
-              rank={rowData}
-              navigation={this.props.navigation}
-              isBeer={true}
-            />
-          }}
-        />
-      </View>
-    )
+    if (this.props.beerRank) {
+      return (
+        <View style={{ backgroundColor: '#fff', }}>
+          <ListView
+            enableEmptySections={true}
+            dataSource={ds.cloneWithRows(this.props.beerRank)}
+            style={{ paddingTop: 10, }}
+            renderRow={rowData => {
+              return rowData ? (
+                <RankComponent
+                  rank={rowData}
+                  navigation={this.props.navigation}
+                  isBeer={true}
+                />
+              ) : null
+            }}
+          />
+        </View>
+      )
+    } else {
+
+    }
   }
 }
 

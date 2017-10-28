@@ -61,7 +61,7 @@ export default class RankComponent extends Component {
         }
         </View>
         <Text style={{ flex: 6, textAlign: 'right', color: '#4a4a4a',
-          marginTop: 20, marginRight: 25, fontSize: 14, fontWeight: '600', }}>{data.feedCount}번 벌컥</Text>
+          marginTop: 20, marginRight: 25, fontSize: 14, fontWeight: '600', }}>{data._feedCount}번 벌컥</Text>
       </TouchableOpacity>
     )
   }
