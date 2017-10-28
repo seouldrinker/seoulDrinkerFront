@@ -113,7 +113,7 @@ class Record extends Component {
 
     data.append('_id', _id)
     data.append('pub_id', pub_id)
-    for (let i=0; i<beer_ids.length; i++) {
+    for (let i=0; i < beer_ids.length; i++) {
       data.append('beer_ids', beer_ids[i])
     }
     data.append('context', context)
@@ -136,8 +136,6 @@ class Record extends Component {
           newBeers: [],
           newPub: null,
         })
-        this.props.getFeedList()
-        this.props.navigation.goBack(null)
       })
     } else {
       this.props.addFeed(data, () => {
@@ -149,12 +147,13 @@ class Record extends Component {
           newBeers: [],
           newPub: null,
         })
-        this.props.getFeedList()
-        this.props.getPubRank()
-        this.props.getBeerRank()
-        this.props.navigation.goBack(null)
       })
     }
+    this.props.getFeedList()
+    this.props.getPubRank()
+    this.props.getBeerRank()
+    this.props.getUserDetail(this.props.auth.signedUpUser._id)
+    this.props.navigation.goBack(null)
   }
 
   selectPhoto() {
