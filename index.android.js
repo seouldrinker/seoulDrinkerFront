@@ -10,20 +10,17 @@ import AppWithNavigationState from './app/navigation/appNavigator'
 
 const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__ })
 
-class App extends Component {
-  configureStore(initialState) {
-    const enhancer = compose(
-      applyMiddleware(
-        thunkMiddleware,
-        loggerMiddleware,
-      ),
-    )
-    return createStore(reducer, initialState, enhancer)
-  }
+const store = createStore(reducer, {}, compose(
+  applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware,
+  ),
+))
 
+class App extends Component {
   render() {
     return (
-      <Provider store={this.configureStore({})}>
+      <Provider store={store}>
         <AppWithNavigationState />
       </Provider>
     )
