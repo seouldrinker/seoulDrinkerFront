@@ -62,12 +62,18 @@ class Login extends Component {
 
     await this._getGoogleCredential(async (googleUser) => {
       await _this.props.setLogin(googleUser, 'google')
+      let picture = await googleUser.photo
+      if (!picture || (picture.split('.jpg').length < 2
+        && picture.split('.jpeg').length < 2
+        && picture.split('.png').length < 2)) {
+        picture = ''
+      }
       await _this.props.addUser({
         id: googleUser.id,
         platform: 'google',
         email: googleUser.email,
         name: googleUser.name,
-        picture: googleUser.photo,
+        picture,
       })
       await _this.props.navigation.navigate('Home', {
         user: googleUser,
@@ -94,9 +100,9 @@ class Login extends Component {
     var _this = this
     const googleUser = await GoogleSignin.currentUserAsync()
     if (googleUser && googleUser.id) {
-      await this.onGoogleLogout()
+      await this.props.onGoogleLogout()
     }
-    this.onFbLogout()
+    this.props.onFbLogout()
     FBLoginManager.loginWithPermissions(["email", "user_photos"],
       async (error, user) => {
         console.log('facebook login!')
@@ -113,53 +119,51 @@ class Login extends Component {
     })
   }
 
-  onFbLogout (cb) {
-    var _this = this
-    FBLoginManager.logout((error, user) => {
-      if (!error) {
-        console.log('facebook logout!')
-        _this.props.setLogout()
-      } else {
-        console.log(error, user)
-      }
-    })
-  }
-
   async onGoogleLogin () {
     var _this = this
-    this.onFbLogout(() => {
-      console.log('facebook logout!')
-      _this.props.setLogout()
-    })
+    await this.props.onFbLogout()
 
     const googleUser = await GoogleSignin.currentUserAsync()
     if (googleUser && googleUser.id) {
-      await this.onGoogleLogout(async () => {
-        await GoogleSignin.signIn().then(async (user) => {
-          console.log('google login!')
-          await _this.props.setLogin(user, 'google')
-          await _this.props.addUser({
-            id: user.id,
-            platform: 'google',
-            email: user.email,
-            name: user.name,
-            picture: user.photo,
-          })
-          await this.props.navigation.navigate('Home', { user, platform: 'google' })
-        }).catch((err) => {
-          console.log('WRONG SIGNIN', err)
-        }).done()
-      })
-    } else {
+      await this.props.onGoogleLogout()
       await GoogleSignin.signIn().then(async (user) => {
         console.log('google login!')
         await _this.props.setLogin(user, 'google')
+
+        let picture = user.photo
+        if (!picture || (picture.split('.jpg').length < 2
+          && picture.split('.jpeg').length < 2
+          && picture.split('.png').length < 2)) {
+          picture = ''
+        }
         await _this.props.addUser({
           id: user.id,
           platform: 'google',
           email: user.email,
           name: user.name,
-          picture: user.photo,
+          picture,
+        })
+        await this.props.navigation.navigate('Home', { user, platform: 'google' })
+      }).catch((err) => {
+        console.log('WRONG SIGNIN', err)
+      }).done()
+    } else {
+      await GoogleSignin.signIn().then(async (user) => {
+        console.log('google login!')
+        await _this.props.setLogin(user, 'google')
+
+        let picture = user.photo
+        if (!picture || (picture.split('.jpg').length < 2
+          || picture.split('.jpeg').length < 2
+          || picture.split('.png').length < 2)) {
+          picture = ''
+        }
+        await _this.props.addUser({
+          id: user.id,
+          platform: 'google',
+          email: user.email,
+          name: user.name,
+          picture,
         })
         await this.props.navigation.navigate('Home', { user, platform: 'google' })
       })
@@ -168,18 +172,6 @@ class Login extends Component {
       })
       .done()
     }
-  }
-
-  async onGoogleLogout (cb) {
-    var _this = this
-    await GoogleSignin.revokeAccess().then(() => GoogleSignin.signOut())
-      .then(() => {
-      console.log('google logout!')
-      _this.props.setLogout()
-      if (cb && typeof cb === 'function') {
-        cb()
-      }
-    }).done()
   }
 
   render () {
