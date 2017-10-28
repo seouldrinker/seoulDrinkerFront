@@ -20,6 +20,8 @@ import MyBeer from './myBeer'
 import MyHeaderComponent from '../../components/my/header'
 import MyContextComponent from '../../components/my/context'
 import MyTapComponent from '../../components/my/tab'
+import MyTooltip from '../../components/my/tooltip'
+
 class My extends Component {
   constructor(props) {
     super(props)
@@ -69,14 +71,28 @@ class My extends Component {
     if (auth.signedUpUser && auth.beerCounter && auth.pubCounter) {
       return (
         <ScrollView style={{ minHeight: height, }}>
-          <MyHeaderComponent />
+          <MyHeaderComponent
+            pressTooltipButton={this.pressTooltipButton}
+            tooltipOn={this.state.tooltipOn} />
           <MyContextComponent
             auth={this.props.auth}
-            goDetail={this.goDetail} />
+            goDetail={this.goDetail}
+            changeProfile={this.props.changeProfile} />
           <MyTapComponent
             showPage={this.state.showPage}
             changeShowPage={this.changeShowPage}
             getUserInfoDetail={this.getUserInfoDetail} />
+          {
+            this.state.tooltipOn ? (
+              <MyTooltip
+                platform={this.props.auth.platform}
+                googleLogout={this.props.onGoogleLogout}
+                facebookLogout={this.props.onFbLogout}
+                pressTooltipButton={this.pressTooltipButton}
+                navigation={this.props.navigation}
+              />
+            ) : null
+          }
           <View style={{ marginBottom: 86, }}>
             {
               this.state.showPage === 'feed' ? (
