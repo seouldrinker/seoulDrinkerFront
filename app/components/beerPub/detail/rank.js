@@ -16,7 +16,7 @@ export default class BeerPubDetailRankComponent extends Component {
   }
 
   render() {
-    const feedList = this.props.data.feedList
+    const feedList = this.props.data._feedList
     let filteredFeedList = []
     for (let i=0 ; i < feedList.length; i=i+3) {
       filteredFeedList.push([feedList[i], feedList[i+1], feedList[i+2]])

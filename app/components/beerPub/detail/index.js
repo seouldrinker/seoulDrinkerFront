@@ -34,7 +34,7 @@ export default class BeerPubDetailComponent extends Component {
           data={this.props.data} isBeer={this.props.isBeer}
           />
         {
-          (this.props.data.feedList && this.props.data.feedList.length > 0) ? (
+          (this.props.data._feedList && this.props.data._feedList.length > 0) ? (
             <BeerPubDetailRankComponent
               data={this.props.data} rank={this.props.rank}
               />

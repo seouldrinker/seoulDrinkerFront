@@ -73,8 +73,8 @@ class PubDetail extends Component {
               <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}
                 style={{ marginTop: 68, marginRight: 20, width: 160,  }}>
                 <View style={{ }}>
-                  <Text style={{ fontSize: 18, fontWeight: '400', color: '#949494', }}>{pub.brewery.eng_name} {pub.eng_name}</Text>
-                  <Text style={{ fontSize: 20, fontWeight: '900', color: '#000', letterSpacing: -2, }}>{pub.brewery.kor_name} {pub.kor_name}</Text>
+                  <Text style={{ fontSize: 18, fontWeight: '400', color: '#949494', }}>{pub.eng_name}</Text>
+                  <Text style={{ fontSize: 20, fontWeight: '900', color: '#000', letterSpacing: -2, }}>{pub.kor_name}</Text>
                 </View>
               </ScrollView>
             </View>

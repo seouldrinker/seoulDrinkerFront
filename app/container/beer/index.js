@@ -86,12 +86,13 @@ class Beer extends Component {
                 value={this.state.keyword}/>
             </View>
             <ListView
+              enableEmptySections={true}
               dataSource={ds.cloneWithRows(this.props.beerData.beerList)}
               renderRow={rowData => {
-                return (
+                return rowData ? (
                   <BeerComponent data={rowData}
                     navigateDetailPage={this.navigateDetailPage.bind(this, rowData._id)}/>
-                )
+                ) : null
               }}
             />
           </ScrollView>

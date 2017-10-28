@@ -86,12 +86,13 @@ class Pub extends Component {
                 value={this.state.keyword}/>
             </View>
             <ListView
+              enableEmptySections={true}
               dataSource={ds.cloneWithRows(this.props.pubData.pubList)}
               renderRow={rowData => {
-                return (
+                return rowData ? (
                   <PubComponent data={rowData}
                     navigateDetailPage={this.navigateDetailPage.bind(this, rowData._id)}/>
-                )
+                ) : null
               }}
             />
           </ScrollView>
