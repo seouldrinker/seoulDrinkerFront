@@ -4,6 +4,7 @@ import {
   View,
   ListView,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -43,9 +44,18 @@ class BeerRank extends Component {
           />
         </View>
       )
-    } else {
-
     }
+    return (
+      <View style={{ flex: 1, justifyContent: 'center',
+        alignItems: 'center', marginTop: 70, }}>
+        <ActivityIndicator
+          animating={!this.props.beerRank}
+          color='#eea51b'
+          size="large"
+          style={{ flex: 1, justifyContent: 'center',
+            alignItems: 'center', height: 100, }}/>
+      </View>
+    )
   }
 }
 

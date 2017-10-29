@@ -4,6 +4,7 @@ import {
   View,
   ListView,
   BackHandler,
+  ActivityIndicator,
 } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux'
@@ -35,8 +36,16 @@ class Feed extends Component {
     if (this.props.nav.routes.length <= 3) {
       return false
     }
-    this.props.navigation.dispatch({ type: 'Navigation/BACK', key: null, })
-    return true
+    const passibleRoute = this.props.nav.routes.filter(route => {
+      return route.routeName !== 'Home' && route.routeName !== 'Login'
+    })
+
+    if (passibleRoute.length > 0) {
+      this.props.navigation.dispatch({ type: 'Navigation/BACK', key: null, })
+      return true
+    }
+
+    return false
   }
 
   componentDidMount () {
@@ -59,11 +68,11 @@ class Feed extends Component {
   }
 
   render() {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    })
+    
     if (this.props.feedData && this.props.feedData.feedList) {
-      const ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      })
-
       let signedUpUserId = null
       if (this.props.auth && this.props.auth.signedUpUser) {
         signedUpUserId = this.props.auth.signedUpUser._id
@@ -88,7 +97,17 @@ class Feed extends Component {
         </View>
       )
     }
-    return <Text>Loading...</Text>
+    return (
+      <View style={{ flex: 1, justifyContent: 'center',
+        alignItems: 'center', marginTop: 70, }}>
+        <ActivityIndicator
+          animating={!this.props.feedData || !this.props.feedData.feedList}
+          color='#eea51b'
+          size="large"
+          style={{ flex: 1, justifyContent: 'center',
+            alignItems: 'center', height: 80, }}/>
+      </View>
+    )
   }
 }
 

@@ -3,6 +3,7 @@ import {
   Text,
   ListView,
   View,
+  ActivityIndicator,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -51,7 +52,17 @@ class News extends Component {
         </View>
       )
     }
-    return <Text>Loading...</Text>
+    return (
+      <View style={{ flex: 1, justifyContent: 'center',
+        alignItems: 'center', marginTop: 70, }}>
+        <ActivityIndicator
+          animating={!this.props.newsData || !this.props.newsData.newsList}
+          color='#eea51b'
+          size="large"
+          style={{ flex: 1, justifyContent: 'center',
+            alignItems: 'center', height: 80, }}/>
+      </View>
+    )
   }
 }
 

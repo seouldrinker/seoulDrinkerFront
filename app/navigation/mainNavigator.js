@@ -82,6 +82,7 @@ export default TabNavigator({
   animationEnabled: false,
   swipeEnabled: false,
   lazy: false,
+  backBehavior: 'none',
   tabBarOptions: {
     activeTintColor: '#eea51b',
     inactiveTintColor: '#bcbcbc',

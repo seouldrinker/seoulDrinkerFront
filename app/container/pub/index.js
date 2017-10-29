@@ -7,6 +7,7 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -54,10 +55,11 @@ class Pub extends Component {
   }
 
   render() {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    })
+
     if (this.props.pubData && this.props.pubData.pubList) {
-      const ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      })
       return (
         <View style={{ marginBottom: 56 }}>
           <View style={{ flexDirection: 'row', backgroundColor: '#eea51b',
@@ -99,7 +101,17 @@ class Pub extends Component {
         </View>
       )
     }
-    return <Text>Loading...</Text>
+    return (
+      <View style={{ flex: 1, justifyContent: 'center',
+        alignItems: 'center', marginTop: 70, }}>
+        <ActivityIndicator
+          animating={!this.props.pubData || !this.props.pubData.pubList}
+          color='#eea51b'
+          size="large"
+          style={{ flex: 1, justifyContent: 'center',
+            alignItems: 'center', height: 100, }}/>
+      </View>
+    )
   }
 }
 

@@ -6,6 +6,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -95,13 +96,18 @@ class PubDetail extends Component {
         <BeerPubDetailComponent data={pub} isBeer={false} rank={rank} />
       </ParallaxScrollView>
       )
-    } else {
-      return (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      )
     }
+    return (
+      <View style={{ flex: 1, justifyContent: 'center',
+        alignItems: 'center', marginTop: 70, }}>
+        <ActivityIndicator
+          animating={!pub}
+          color='#eea51b'
+          size="large"
+          style={{ flex: 1, justifyContent: 'center',
+            alignItems: 'center', height: 100, }}/>
+      </View>
+    )
   }
 }
 

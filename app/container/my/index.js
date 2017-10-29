@@ -6,6 +6,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -115,13 +116,18 @@ class My extends Component {
           </View>
         </ScrollView>
       )
-    } else {
-      return (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      )
     }
+    return (
+      <View style={{ flex: 1, justifyContent: 'center',
+        alignItems: 'center', marginTop: 70, }}>
+        <ActivityIndicator
+          animating={!auth.signedUpUser || !auth.beerCounter || !auth.pubCounter}
+          color='#eea51b'
+          size="large"
+          style={{ flex: 1, justifyContent: 'center',
+            alignItems: 'center', height: 100, }}/>
+      </View>
+    )
   }
 }
 
