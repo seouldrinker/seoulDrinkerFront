@@ -3,6 +3,7 @@ package com.seouldrinkerfront;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
+import android.util.Log;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,7 +12,8 @@ public class MainActivity extends ReactActivity {
     SplashScreen.show(this);  // here
     super.onCreate(savedInstanceState);
   }
-  /**
+
+  /*
    * Returns the name of the main component registered from JavaScript.
    * This is used to schedule rendering of the component.
    */
@@ -19,4 +21,10 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "seoulDrinkerFront";
   }
+
+  @Override
+  public void invokeDefaultOnBackPressed() {
+    moveTaskToBack(true);
+  }
+
 }
