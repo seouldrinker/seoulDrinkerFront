@@ -46,6 +46,39 @@ const auth = (state = initialAuthState, action) => {
         pubCounter: action.pubCounter,
         beerCounter: action.beerCounter,
       }
+    case 'ADD_AUTH_FEED':
+      const addNewFeedList = Object.assign([], state.feedList)
+      addNewFeedList.unshift(action.feed)
+      return {
+        ...state,
+        feedList: addNewFeedList,
+      }
+    case 'MODIFY_AUTH_FEED':
+      const modifyNewFeedList = Object.assign([], state.feedList)
+      const modifyFeedIndex = state.feedList.findIndex(feed => {
+        return feed._id === action.feed._id
+      })
+      if (modifyFeedIndex > -1) {
+        modifyNewFeedList[modifyFeedIndex] = action.feed
+        return {
+          ...state,
+          feedList: modifyNewFeedList,
+        }
+      }
+      return state
+    case 'DELETE_AUTH_FEED_LIST':
+      const deleteNewFeedList = Object.assign([], state.feedList)
+      const deletedFeedIndex = state.feedList.findIndex(feed => {
+        return feed._id === action.feedId
+      })
+      if (deletedFeedIndex > -1) {
+        deleteNewFeedList.splice(deletedFeedIndex, 1)
+        return {
+          ...state,
+          feedList: deleteNewFeedList,
+        }
+      }
+      return state
     default:
       return state
   }
@@ -67,7 +100,27 @@ const feedData = (state = initialFeedListState, action) => {
         currentPage: action.currentPage,
         totalPage: action.totalPage,
       }
-    case 'DELETE_FEED':
+    case 'ADD_FEED':
+      const addNewFeedList = Object.assign([], state.feedList)
+      addNewFeedList.unshift(action.feed)
+      return {
+        ...state,
+        feedList: addNewFeedList,
+      }
+    case 'MODIFY_FEED':
+      const modifyNewFeedList = Object.assign([], state.feedList)
+      const modifyFeedIndex = state.feedList.findIndex(feed => {
+        return feed._id === action.feed._id
+      })
+      if (modifyFeedIndex > -1) {
+        modifyNewFeedList[modifyFeedIndex] = action.feed
+        return {
+          ...state,
+          feedList: modifyNewFeedList,
+        }
+      }
+      return state
+    case 'DELETE_FEED_LIST':
       const deleteNewFeedList = Object.assign([], state.feedList)
       const deletedFeedIndex = state.feedList.findIndex(feed => {
         return feed._id === action.feedId

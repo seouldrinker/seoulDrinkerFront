@@ -44,9 +44,44 @@ function _addFeedList({feedList, currentPage, totalPage}) {
   }
 }
 
-function _deleteFeed(feedId) {
+function _addFeed(feed) {
   return {
-    type: 'DELETE_FEED',
+    type: 'ADD_FEED',
+    feed,
+  }
+}
+
+function _addAuthFeed(feed) {
+  return {
+    type: 'ADD_AUTH_FEED',
+    feed,
+  }
+}
+
+function _modifyFeed(feed) {
+  return {
+    type: 'MODIFY_FEED',
+    feed,
+  }
+}
+
+function _modifyAuthFeed(feed) {
+  return {
+    type: 'MODIFY_AUTH_FEED',
+    feed,
+  }
+}
+
+function _deleteFeedList(feedId) {
+  return {
+    type: 'DELETE_FEED_LIST',
+    feedId,
+  }
+}
+
+function _deleteAuthFeedList(feedId) {
+  return {
+    type: 'DELETE_AUTH_FEED_LIST',
     feedId,
   }
 }
@@ -206,6 +241,8 @@ export function addFeed(data, cb) {
       url: `${API_URL}/feed`,
       data,
     }, (results) => {
+      dispatch(_addFeed(results.data.results))
+      dispatch(_addAuthFeed(results.data.results))
       if (results.data.results._id
         && results.data.results._id.length === 24
         && cb
@@ -223,6 +260,8 @@ export function modifyFeed(feedId, data, cb) {
       url: `${API_URL}/feed/${feedId}`,
       data,
     }, (results) => {
+      dispatch(_modifyFeed(results.data.results))
+      dispatch(_modifyAuthFeed(results.data.results))
       if (results.data.results.nModified === 1
         && results.data.results.ok === 1
         && cb
@@ -240,7 +279,8 @@ export function deleteFeed(_id) {
       url: `${API_URL}/feed/${_id}`,
     }, (results) => {
       if (results.data && results.data.results && results.data.results.ok === 1) {
-          dispatch(_deleteFeed(_id))
+        dispatch(_deleteFeedList(_id))
+        dispatch(_deleteAuthFeedList(_id))
       }
     })
   }
@@ -370,22 +410,36 @@ export function getUserDetail(_id) {
       let beerCounter = {}
       const feedList = results.data.results._feeds
       feedList.map((v, k) => {
+        const feedDate = v.udt_dt || v.crt_dt
+
         if (pubCounter[v.pub._id] && pubCounter[v.pub._id]['count']) {
+          const beforeDate = new Date(pubCounter[v.pub._id]['date'])
+          const afterDate = new Date(feedDate)
+          if (beforeDate < afterDate) {
+            pubCounter[v.pub._id]['date'] = feedDate
+          }
           pubCounter[v.pub._id]['count']++
         } else {
           pubCounter[v.pub._id] = {
             count: 1,
             pub: v.pub,
+            date: feedDate,
           }
         }
 
         v.beers.map((v2, k2) => {
           if (beerCounter[v2._id] && beerCounter[v2._id]['count']) {
+            const beforeDate = new Date(beerCounter[v2._id]['date'])
+            const afterDate = new Date(feedDate)
+            if (beforeDate < afterDate) {
+              beerCounter[v2._id]['date'] = feedDate
+            }
             beerCounter[v2._id]['count']++
           } else {
             beerCounter[v2._id] = {
               count: 1,
               beer: v2,
+              date: feedDate,
             }
           }
         })
