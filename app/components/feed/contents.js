@@ -12,24 +12,30 @@ export default class FeedContentsComponent extends Component {
     return (
       <View style={ styles.feedContentsContainer }>
         <View style={ styles.feedContentsPubContainer }>
-          <Image source={require('../../images/feed/feed_place.png')} />
+          <Image source={require('../../images/feed/feed_place.png')}
+            style={{ width: 18, height: 22, }}/>
           <TouchableOpacity onPress={() => {
-            this.props.navigation.navigate('PubDetail', { _id: this.props.pub._id })
+            if (this.props.nav.routes[this.props.nav.index].routeName !== 'PubDetail') {
+              this.props.navigation.navigate('PubDetail', { _id: this.props.pub._id })
+            }
           }}>
             <Text style={ styles.feedContentsPub }>{this.props.pub.kor_name || this.props.pub.eng_name }</Text>
           </TouchableOpacity>
         </View>
         <View style={ styles.feedContentsBeerContainer }>
-          <Image style={{ marginTop: 4 }} source={require('../../images/feed/feed_beer.png')} />
+          <Image source={require('../../images/feed/feed_beer.png')}
+            style={{ marginTop: 4, width: 18, height: 22, }} />
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ flexDirection: 'row', }}>
             {
               this.props.beers.map((v, k) => {
                 return (
                   <TouchableOpacity key={ k } style={{ marginLeft: 14, }}
                     onPress={() => {
-                      this.props.navigation.navigate('BeerDetail', { _id: v._id })
+                      if (this.props.nav.routes[this.props.nav.index].routeName !== 'BeerDetail') {
+                        this.props.navigation.navigate('BeerDetail', { _id: v._id })
+                      }
                     }}>
-                    <Text style={ styles.feedContentsBeer }>{ v.eng_name || v.kor_name }</Text>
+                    <Text style={ styles.feedContentsBeer }>{ v.kor_name || v.eng_name }</Text>
                   </TouchableOpacity>
                 )
               })

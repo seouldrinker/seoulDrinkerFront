@@ -5,11 +5,11 @@ export default class FeedToolTip extends Component {
   constructor (props) {
     super(props)
 
-    this.goModiftPage = this.goModiftPage.bind(this)
+    this.goModifyPage = this.goModifyPage.bind(this)
   }
 
-  goModiftPage() {
-    this.props.navigation.navigate('Record', { data: this.props.data })
+  goModifyPage() {
+    this.props.navigation.navigate('Record', { data: this.props.data, })
   }
 
   render () {
@@ -18,7 +18,7 @@ export default class FeedToolTip extends Component {
         marginRight: 6, marginTop: 54, paddingTop: 10, paddingBottom: 10,
         top: 0, right: 0, backgroundColor: '#fff', elevation: 8, }}>
         <TouchableOpacity onPress={() => {
-          this.goModiftPage()
+          this.goModifyPage()
           this.props.pressTooltipButton(false)
         }}
           style={{ alignItems: 'center', height: 41, paddingTop: 10, }}

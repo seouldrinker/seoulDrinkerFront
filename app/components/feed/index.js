@@ -41,6 +41,7 @@ export default class FeedComponent extends Component {
             pub={this.props.data.pub}
             beers={this.props.data.beers}
             context={this.props.data.context}
+            nav={this.props.nav}
             navigation={this.props.navigation}
           />
           {
