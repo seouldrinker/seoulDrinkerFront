@@ -55,5 +55,5 @@ buck-out/
 #CUSTOM
 
 config/config.js
-google-services.json
+**/google-services.*
 android/app/src/main/assets
