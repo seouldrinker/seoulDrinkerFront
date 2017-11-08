@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     width: '100%',
     backgroundColor: '#fff',
@@ -18,7 +18,7 @@ export default StyleSheet.create({
     width: 265,
   },
   loginButtonList: {
-    marginTop: 144,
+    marginBottom: 80,
   },
   loginButton: {
     width: 290,

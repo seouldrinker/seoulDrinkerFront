@@ -5,8 +5,11 @@ import {
   Image,
   Text,
   View,
-  TouchableOpacity } from 'react-native'
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
+import { debounce } from 'lodash'
 import { FBLogin, FBLoginManager } from 'react-native-facebook-login'
 import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import { connect } from 'react-redux'
@@ -20,6 +23,10 @@ import styles from '../styles/login'
 class Login extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      isLoging: false,
+    }
   }
 
   async _getGoogleCredential (cb) {
@@ -61,6 +68,7 @@ class Login extends Component {
     SplashScreen.hide()
 
     await this._getGoogleCredential(async (googleUser) => {
+      _this.setState({ isLoging: true, })
       await _this.props.setLogin(googleUser, 'google')
       let picture = await googleUser.photo
       if (!picture || (picture.split('.jpg').length < 2
@@ -79,10 +87,12 @@ class Login extends Component {
         user: googleUser,
         platform: 'google',
       })
+      this.setState({ isLoging: false, })
       return 0
     })
 
     this._getFbCredential(async (fbUser) => {
+      _this.setState({ isLoging: true, })
       await _this.props.setLogin(fbUser, 'facebook')
       await _this.props.addUser({
         platform: 'facebook',
@@ -92,17 +102,20 @@ class Login extends Component {
         user: fbUser,
         platform: 'facebook',
       })
+      _this.setState({ isLoging: false, })
       return 0
     })
   }
 
   async onFbLogin () {
     var _this = this
+    _this.setState({ isLoging: true, })
     const googleUser = await GoogleSignin.currentUserAsync()
     if (googleUser && googleUser.id) {
       await this.props.onGoogleLogout()
     }
     this.props.onFbLogout()
+    FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.WebView)
     FBLoginManager.loginWithPermissions(["email", "user_photos"],
       async (error, user) => {
         console.log('facebook login!')
@@ -116,89 +129,86 @@ class Login extends Component {
       } else {
         console.log(error, user)
       }
+      _this.setState({ isLoging: false, })
     })
   }
 
   async onGoogleLogin () {
     var _this = this
+    _this.setState({ isLoging: true, })
     await this.props.onFbLogout()
 
     const googleUser = await GoogleSignin.currentUserAsync()
     if (googleUser && googleUser.id) {
       await this.props.onGoogleLogout()
-      await GoogleSignin.signIn().then(async (user) => {
-        console.log('google login!')
-        await _this.props.setLogin(user, 'google')
-
-        let picture = user.photo
-        if (!picture || (picture.split('.jpg').length < 2
-          && picture.split('.jpeg').length < 2
-          && picture.split('.png').length < 2)) {
-          picture = ''
-        }
-        await _this.props.addUser({
-          id: user.id,
-          platform: 'google',
-          email: user.email,
-          name: user.name,
-          picture,
-        })
-        await this.props.navigation.navigate('Home', { user, platform: 'google' })
-      }).catch((err) => {
-        console.log('WRONG SIGNIN', err)
-      }).done()
-    } else {
-      await GoogleSignin.signIn().then(async (user) => {
-        console.log('google login!')
-        await _this.props.setLogin(user, 'google')
-
-        let picture = user.photo
-        if (!picture || (picture.split('.jpg').length < 2
-          || picture.split('.jpeg').length < 2
-          || picture.split('.png').length < 2)) {
-          picture = ''
-        }
-        await _this.props.addUser({
-          id: user.id,
-          platform: 'google',
-          email: user.email,
-          name: user.name,
-          picture,
-        })
-        await this.props.navigation.navigate('Home', { user, platform: 'google' })
-      })
-      .catch((err) => {
-        console.log('WRONG SIGNIN', err)
-      })
-      .done()
     }
+    await GoogleSignin.signIn().then(async (user) => {
+      console.log('google login!')
+      await _this.props.setLogin(user, 'google')
+
+      let picture = user.photo
+      if (!picture || (picture.split('.jpg').length < 2
+        && picture.split('.jpeg').length < 2
+        && picture.split('.png').length < 2)) {
+        picture = ''
+      }
+      await _this.props.addUser({
+        id: user.id,
+        platform: 'google',
+        email: user.email,
+        name: user.name,
+        picture,
+      })
+      await this.props.navigation.navigate('Home', { user, platform: 'google' })
+      _this.setState({ isLoging: false, })
+    }).catch((err) => {
+      console.log('WRONG SIGNIN', err)
+      this.setState({ isLoging: false, })
+    }).done()
   }
 
   render () {
+    if (!this.state.isLoging) {
+      return (
+        <Image style={styles.container}
+          source={require('../images/login/background.png')}>
+          <View style={styles.loginButtonList}>
+            <TouchableOpacity style={[styles.loginButton, {backgroundColor: '#3e5ccb'}]}
+              onPress={debounce(this.onFbLogin.bind(this), 3000, {
+                leading: true,
+                trailing: false
+              })}>
+              <Image
+                style={styles.loginButtonImage}
+                source={require('../images/login/facebook.png')}
+              />
+            <Text style={{ color: '#fff', fontWeight: '800', }}>페이스북으로 시작하기</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.loginButton, {backgroundColor: '#ee741b'}]}
+              onPress={debounce(this.onGoogleLogin.bind(this), 3000, {
+                leading: true,
+                trailing: false
+              })}>
+              <Image
+                style={styles.loginButtonImage}
+                source={require('../images/login/google.png')}
+              />
+            <Text style={{ color: '#fff', fontWeight: '800', }}>구글 계정으로 시작하기</Text>
+            </TouchableOpacity>
+          </View>
+        </Image>
+      )
+    }
     return (
-      <Image style={styles.container}
-        source={require('../images/login/background.png')}>
-        <Image style={styles.logo}
-          source={require('../images/login/logo.png')} />
-        <View style={styles.loginButtonList}>
-          <TouchableOpacity style={[styles.loginButton, {backgroundColor: '#3e5ccb'}]}
-            onPress={this.onFbLogin.bind(this)}>
-            <Image
-              style={styles.loginButtonImage}
-              source={require('../images/login/facebook.png')}
-            />
-          <Text style={{ color: '#fff', fontWeight: '800', }}>페이스북으로 시작하기</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.loginButton, {backgroundColor: '#ee741b'}]}
-            onPress={this.onGoogleLogin.bind(this)}>
-            <Image
-              style={styles.loginButtonImage}
-              source={require('../images/login/google.png')}
-            />
-          <Text style={{ color: '#fff', fontWeight: '800', }}>구글 계정으로 시작하기</Text>
-          </TouchableOpacity>
-        </View>
-      </Image>
+      <View style={{ flex: 1, justifyContent: 'center',
+        alignItems: 'center', marginTop: 70, }}>
+        <ActivityIndicator
+          animating={!this.props.feedData || !this.props.feedData.feedList}
+          color='#eea51b'
+          size="large"
+          style={{ flex: 1, justifyContent: 'center',
+            alignItems: 'center', height: 100, }}/>
+      </View>
     )
   }
 }
