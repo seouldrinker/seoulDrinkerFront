@@ -7,8 +7,4 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  naviIcon: {
-    width: 24,
-    height: 20,
-  },
 })
