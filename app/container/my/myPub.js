@@ -19,12 +19,25 @@ export default class MyPub extends Component {
   }
 
   render() {
+    if (this.props.pubList) {
+      return (
+        <MyBeerPubComponent
+          dataList={this.props.pubList}
+          dataCounter={this.props.auth.pubCounter}
+          naviPage={'PubDetail'}
+          navigation={this.props.navigation}/>
+      )
+    }
     return (
-      <MyBeerPubComponent
-        dataList={this.props.pubList}
-        dataCounter={this.props.auth.pubCounter}
-        naviPage={'PubDetail'}
-        navigation={this.props.navigation}/>
+      <View style={{ flex: 1, justifyContent: 'center',
+        alignItems: 'center', marginTop: 70, }}>
+        <ActivityIndicator
+          animating={!this.props.pubList}
+          color='#eea51b'
+          size="large"
+          style={{ flex: 1, justifyContent: 'center',
+            alignItems: 'center', height: 100, }}/>
+      </View>
     )
   }
 }

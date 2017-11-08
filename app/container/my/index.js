@@ -38,11 +38,17 @@ class My extends Component {
 
     this.props.navigation.setParams({
       initUserDetail: this.getUserInfoDetail,
+      initPubList: this.props.getPubList,
+      initBeerList: this.props.getBeerList,
     })
   }
   static navigationOptions = ({ navigation }) => ({
     tabBarOnPress: (scene, jumpToIndex) => {
-      navigation.state.params.initUserDetail()
+      if (!scene || !scene.focused) {
+        navigation.state.params.initUserDetail()
+        navigation.state.params.initPubList()
+        navigation.state.params.initBeerList()
+      }
       jumpToIndex(scene.index)
     },
   })
@@ -69,7 +75,7 @@ class My extends Component {
   render() {
     const auth = this.props.auth
 
-    if (auth.signedUpUser && auth.beerCounter && auth.pubCounter) {
+    if (auth.signedUpUser) {
       return (
         <ScrollView style={{ minHeight: height, }}>
           <MyHeaderComponent
@@ -81,8 +87,7 @@ class My extends Component {
             changeProfile={this.props.changeProfile} />
           <MyTapComponent
             showPage={this.state.showPage}
-            changeShowPage={this.changeShowPage}
-            getUserInfoDetail={this.getUserInfoDetail} />
+            changeShowPage={this.changeShowPage} />
           {
             this.state.tooltipOn ? (
               <MyTooltip
@@ -121,7 +126,7 @@ class My extends Component {
       <View style={{ flex: 1, justifyContent: 'center',
         alignItems: 'center', marginTop: 70, }}>
         <ActivityIndicator
-          animating={!auth.signedUpUser || !auth.beerCounter || !auth.pubCounter}
+          animating={!auth.signedUpUser}
           color='#eea51b'
           size="large"
           style={{ flex: 1, justifyContent: 'center',

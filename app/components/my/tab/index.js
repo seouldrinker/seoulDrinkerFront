@@ -25,7 +25,7 @@ export default class MyTapComponent extends Component {
           { borderBottomWidth: 2, borderBottomColor: '#4a4a4a' }]}>
           <Text style={[{ textAlign: 'center', fontSize: 15,
             fontWeight: '900', color: '#949494', },
-            this.props.showPage === 'feed' && { color: '#000', }]}>피드</Text>
+            this.props.showPage === 'feed' && { color: '#000', }]}>FEED</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {
           this.props.changeShowPage('pub')
@@ -34,7 +34,7 @@ export default class MyTapComponent extends Component {
           { borderBottomWidth: 2, borderBottomColor: '#4a4a4a' }]}>
           <Text style={[{ textAlign: 'center', fontSize: 15,
             fontWeight: '900', color: '#949494', },
-            this.props.showPage === 'pub' && { color: '#000', }]}>펍</Text>
+            this.props.showPage === 'pub' && { color: '#000', }]}>PUB</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {
           this.props.changeShowPage('beer')
@@ -43,7 +43,7 @@ export default class MyTapComponent extends Component {
           { borderBottomWidth: 2, borderBottomColor: '#4a4a4a' }]}>
           <Text style={[{ textAlign: 'center', fontSize: 15,
             fontWeight: '900', color: '#949494', },
-            this.props.showPage === 'beer' && { color: '#000a', }]}>비어</Text>
+            this.props.showPage === 'beer' && { color: '#000a', }]}>BEER</Text>
         </TouchableOpacity>
       </View>
     )

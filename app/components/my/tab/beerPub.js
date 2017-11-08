@@ -10,7 +10,7 @@ import {
 import { STATIC_URL } from '../../../../config/config'
 const { width, height } = Dimensions.get('window')
 
-import { makeTimer } from '../../../components/common'
+import { makeTimerNoSeconds } from '../../../components/common'
 
 export default class MyBeerPubComponent extends Component {
   constructor(props) {
@@ -22,7 +22,8 @@ export default class MyBeerPubComponent extends Component {
   render() {
     let filteredDataList = []
     const dataList = this.props.dataList
-    const dataIds = Object.keys(this.props.dataCounter)
+    const dataCounter = this.props.dataCounter
+    const dataIds = Object.keys(dataCounter)
     for (let i=0 ; i < dataList.length; i=i+3) {
       filteredDataList.push([dataList[i], dataList[i+1], dataList[i+2]])
     }
@@ -57,7 +58,7 @@ export default class MyBeerPubComponent extends Component {
                                 borderWidth: 3, borderColor: '#eea51b',},
                                 naviPage === 'PubDetail' && { borderRadius: width/3-36, }]}></View>
                               <Text style={{ marginTop: 2, textAlign: 'center',
-                                color: '#eea51b', fontWeight: '900', }}>{makeTimer(v[v2].udt_dt)}</Text>
+                                color: '#eea51b', fontWeight: '900', }}>{makeTimerNoSeconds(dataCounter[v[v2]._id].date)}</Text>
                             </View>
                           ) : (
                             <View>

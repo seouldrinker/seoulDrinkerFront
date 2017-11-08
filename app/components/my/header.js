@@ -18,8 +18,8 @@ export default class MyHeaderComponent extends Component {
     return (
       <View style={{ flexDirection: 'row', backgroundColor: '#fff',
         height: 56, elevation: 0, }}>
-        <Text style={{ flex: 16, marginTop: 16, marginLeft: 60,
-          color: '#000', fontSize: 18, fontWeight: '500', }}>마이 페이지</Text>
+        <Text style={{ flex: 16, marginTop: 16, marginLeft: 28,
+          color: '#000', fontSize: 18, fontWeight: '500', }}>My</Text>
         <TouchableOpacity style={{ flex: 2, marginTop: 20, }} onPress={() =>{
             this.props.pressTooltipButton(!this.props.tooltipOn)
           }}>

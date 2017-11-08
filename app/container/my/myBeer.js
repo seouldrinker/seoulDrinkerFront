@@ -5,6 +5,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native'
 
 import { STATIC_URL } from '../../../config/config'
@@ -19,12 +20,25 @@ export default class MyBeer extends Component {
   }
 
   render() {
+    if (this.props.beerList) {
+      return (
+        <MyBeerPubComponent
+          dataList={this.props.beerList}
+          dataCounter={this.props.auth.beerCounter}
+          naviPage={'BeerDetail'}
+          navigation={this.props.navigation}/>
+      )
+    }
     return (
-      <MyBeerPubComponent
-        dataList={this.props.beerList}
-        dataCounter={this.props.auth.beerCounter}
-        naviPage={'BeerDetail'}
-        navigation={this.props.navigation}/>
+      <View style={{ flex: 1, justifyContent: 'center',
+        alignItems: 'center', marginTop: 70, }}>
+        <ActivityIndicator
+          animating={!this.props.beerList}
+          color='#eea51b'
+          size="large"
+          style={{ flex: 1, justifyContent: 'center',
+            alignItems: 'center', height: 100, }}/>
+      </View>
     )
   }
 }
