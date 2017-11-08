@@ -18,20 +18,21 @@ import RankComponent from '../../components/rank'
 class BeerRank extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      ds: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      })
+    }
   }
 
   render() {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    })
-
     if (this.props.beerRank) {
       return (
         <View style={{ backgroundColor: '#fff', }}>
           <ListView
             enableEmptySections={true}
-            dataSource={ds.cloneWithRows(this.props.beerRank)}
-            style={{ paddingTop: 10, }}
+            dataSource={this.state.ds.cloneWithRows(this.props.beerRank)}
+            style={{ paddingTop: 4, paddingBottom: 6, }}
             renderRow={rowData => {
               return rowData ? (
                 <RankComponent

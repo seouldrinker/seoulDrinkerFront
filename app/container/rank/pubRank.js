@@ -18,20 +18,21 @@ import RankComponent from '../../components/rank'
 class PubRank extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      ds: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      })
+    }
   }
 
   render() {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    })
-
     if (this.props.pubRank) {
       return (
         <View style={{ backgroundColor: '#fff', }}>
           <ListView
             enableEmptySections={true}
-            dataSource={ds.cloneWithRows(this.props.pubRank)}
-            style={{ paddingTop: 10, }}
+            dataSource={this.state.ds.cloneWithRows(this.props.pubRank)}
+            style={{ paddingTop: 4, paddingBottom: 6, }}
             renderRow={rowData => {
               return rowData ? (
                 <RankComponent

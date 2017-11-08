@@ -29,7 +29,7 @@ export default class RankComponent extends Component {
     return (
       <TouchableOpacity style={{ flexDirection: 'row', marginTop: 6, marginBottom: 6, }}
         onPress={this.goDetail}>
-        <Text style={[{ flex: 1, marginTop: 14, marginLeft: 18, color: '#000',
+        <Text style={[{ flex: 2, marginTop: 14, marginLeft: 18, color: '#000',
           fontSize: 14, fontWeight: '800', }, (this.props.rank.rank === 1) && {color: '#ee741b', }]}>{
             this.props.rank.rank === 0 ? '-' : this.props.rank.rank
           }</Text>
