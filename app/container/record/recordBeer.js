@@ -49,7 +49,7 @@ export default class RecordBeer extends Component {
           this.props.getBeerList()
           this.props.setBeerModalVisible(false)
         }}>
-        <View style={{ width, height }}>
+        <View style={{ width, height, paddingBottom: 20, }}>
           <ModalHeader
             isBeer={true}
             choicedItems={this.state.choicedBeerList}

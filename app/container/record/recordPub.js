@@ -49,7 +49,7 @@ export default class RecordPub extends Component {
           this.props.getPubList()
           this.props.setPubModalVisible(false)
         }}>
-        <View style={{ width, height }}>
+        <View style={{ width, height, paddingBottom: 20, }}>
           <ModalHeader
             isBeer={false}
             choicedItems={this.state.choicedPub}

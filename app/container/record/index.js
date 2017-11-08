@@ -105,7 +105,7 @@ class Record extends Component {
       ? feedImage.uri.split("://")[0]
       : null
 
-    if (!_id || !pub_id || !beer_ids || !context || !feedImage) {
+    if (!_id || !pub_id || !beer_ids || beer_ids.length <= 0 || !context || !feedImage) {
       alert('항목을 모두 입력해주세요!')
     }
 
@@ -149,10 +149,6 @@ class Record extends Component {
         })
       })
     }
-    this.props.getFeedList()
-    this.props.getPubRank()
-    this.props.getBeerRank()
-    this.props.getUserDetail(this.props.auth.signedUpUser._id)
     this.props.navigation.goBack(null)
   }
 

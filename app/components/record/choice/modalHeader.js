@@ -26,7 +26,7 @@ class ModalHeader extends Component {
           <Image source={require('../../../images/record/cancel.png')}
             style={{ marginTop: 4, marginLeft: 20, }}/>
         </TouchableOpacity>
-        <Text style={{ marginLeft: 15, flex: 3, fontSize: 20, fontWeight: '600', color: '#000' }}>벌컥 맥주</Text>
+        <Text style={{ marginLeft: 15, flex: 3, fontSize: 20, fontWeight: '600', color: '#000' }}>{this.props.isBeer ? '벌컥 맥주' : '벌컥 펍'}</Text>
         <TouchableOpacity onPress={() => {
           let items = []
           this.props.itemList.map((v, k) => {
