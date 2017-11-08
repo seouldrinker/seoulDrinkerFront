@@ -19,7 +19,10 @@ class Pub extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      keyword: ''
+      keyword: '',
+      ds: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      })
     }
     this.changeKeyword = this.changeKeyword.bind(this)
     this.initKeyword = this.initKeyword.bind(this)
@@ -31,8 +34,10 @@ class Pub extends Component {
   }
   static navigationOptions = ({ navigation }) => ({
     tabBarOnPress: (scene, jumpToIndex) => {
-      navigation.state.params.initKeyword()
-      navigation.state.params.initPubList()
+      if (!scene || !scene.focused) {
+        navigation.state.params.initKeyword()
+        navigation.state.params.initPubList()
+      }
       jumpToIndex(scene.index)
     },
   })
@@ -51,29 +56,32 @@ class Pub extends Component {
   }
 
   navigateDetailPage(_id) {
-    this.props.navigation.navigate('PubDetail', { _id })
+    if (this.props.nav.routes[this.props.nav.index].routeName !== 'PubDetail') {
+      this.props.navigation.navigate('PubDetail', { _id })
+    }
   }
 
   render() {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    })
-
     if (this.props.pubData && this.props.pubData.pubList) {
       return (
         <View style={{ marginBottom: 56 }}>
           <View style={{ flexDirection: 'row', backgroundColor: '#eea51b',
             height: 56, elevation: 8, }}>
-            <Text style={{ flex: 16, marginTop: 14, marginLeft: 60, color: '#fff',
+            <Text style={{ flex: 16, marginTop: 14, marginLeft: 28, color: '#fff',
               fontSize: 20, fontWeight: '600' }}>Pub</Text>
             <TouchableOpacity style={{ flex: 2, marginTop: 17, }}
-              onPress={() => this.props.navigation.navigate('PubRank')}>
+              onPress={() => {
+                const nav = this.props.nav
+                if (nav.routes[nav.index].routeName !== 'PubRank') {
+                  this.props.navigation.navigate('PubRank')
+                }
+              }}>
               <Image source={require('../../images/common/rank.png')} />
             </TouchableOpacity>
           </View>
           <ScrollView style={{ backgroundColor: '#fff' }}>
             <View style={{ flexDirection: 'row', height: 60, borderBottomWidth: 1,
-              borderBottomColor: '#eea51b', marginLeft: 18, marginRight: 18,  }}>
+              borderBottomColor: '#eea51b', marginLeft: 28, marginRight: 18,  }}>
               <Image source={require('../../images/record/search.png')}
                 style={{ marginTop: 22, marginLeft: 2, marginBottom: 18  }}/>
               <TextInput
@@ -89,7 +97,7 @@ class Pub extends Component {
             </View>
             <ListView
               enableEmptySections={true}
-              dataSource={ds.cloneWithRows(this.props.pubData.pubList)}
+              dataSource={this.state.ds.cloneWithRows(this.props.pubData.pubList)}
               renderRow={rowData => {
                 return rowData ? (
                   <PubComponent data={rowData}

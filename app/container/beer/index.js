@@ -19,7 +19,10 @@ class Beer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      keyword: ''
+      keyword: '',
+      ds: new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+      })
     }
     this.changeKeyword = this.changeKeyword.bind(this)
     this.initKeyword = this.initKeyword.bind(this)
@@ -31,8 +34,10 @@ class Beer extends Component {
   }
   static navigationOptions = ({ navigation }) => ({
     tabBarOnPress: (scene, jumpToIndex) => {
-      navigation.state.params.initKeyword()
-      navigation.state.params.initBeerList()
+      if (!scene || !scene.focused) {
+        navigation.state.params.initKeyword()
+        navigation.state.params.initBeerList()
+      }
       jumpToIndex(scene.index)
     },
   })
@@ -51,28 +56,32 @@ class Beer extends Component {
   }
 
   navigateDetailPage(_id) {
-    this.props.navigation.navigate('BeerDetail', { _id })
+    if (this.props.nav.routes[this.props.nav.index].routeName !== 'BeerDetail') {
+      this.props.navigation.navigate('BeerDetail', { _id })
+    }
   }
 
   render() {
     if (this.props.beerData && this.props.beerData.beerList) {
-      const ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      })
       return (
         <View style={{ marginBottom: 56 }}>
           <View style={{ flexDirection: 'row', backgroundColor: '#eea51b',
             height: 56, elevation: 8, }}>
-            <Text style={{ flex: 16, marginTop: 14, marginLeft: 60, color: '#fff',
+            <Text style={{ flex: 16, marginTop: 14, marginLeft: 28, color: '#fff',
               fontSize: 20, fontWeight: '600' }}>Beer</Text>
             <TouchableOpacity style={{ flex: 2, marginTop: 17, }}
-              onPress={() => this.props.navigation.navigate('BeerRank')}>
+              onPress={() => {
+                const nav = this.props.nav
+                if (nav.routes[nav.index].routeName !== 'BeerRank') {
+                  this.props.navigation.navigate('BeerRank')
+                }
+              }}>
               <Image source={require('../../images/common/rank.png')} />
             </TouchableOpacity>
           </View>
           <ScrollView style={{ backgroundColor: '#fff' }}>
             <View style={{ flexDirection: 'row', height: 60, borderBottomWidth: 1,
-              borderBottomColor: '#eea51b', marginLeft: 18, marginRight: 18,  }}>
+              borderBottomColor: '#eea51b', marginLeft: 28, marginRight: 18,  }}>
               <Image source={require('../../images/record/search.png')}
                 style={{ marginTop: 22, marginLeft: 2, marginBottom: 18  }}/>
               <TextInput
@@ -88,7 +97,7 @@ class Beer extends Component {
             </View>
             <ListView
               enableEmptySections={true}
-              dataSource={ds.cloneWithRows(this.props.beerData.beerList)}
+              dataSource={this.state.ds.cloneWithRows(this.props.beerData.beerList)}
               renderRow={rowData => {
                 return rowData ? (
                   <BeerComponent data={rowData}
