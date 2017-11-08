@@ -23,7 +23,9 @@ export default class BeerPubDetailContextBodyComponent extends Component {
           }}>
           <Text style={{ color: '#4a4a4a', fontSize: 18, fontWeight: '600',
             }}>ABOUT</Text>
-          <Text style={{ marginTop: 10, lineHeight: 26, }}>{data.brewery.about}</Text>
+          <Text style={{ marginTop: 10, lineHeight: 26, }}>
+            { !this.props.isBeer ? data.brewery.about : data.about }
+          </Text>
         </View>
         {
           !this.props.isBeer ? (
