@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from "../../actions"
 
-import ParallaxScrollView from '../../modules/react-native-parallax-scroll'
+import ParallaxScrollView from 'react-native-parallax-scroll-view'
 import BeerPubDetailComponent from '../../components/beerPub/detail'
 
 import { STATIC_URL } from '../../../config/config'

@@ -27,7 +27,7 @@ export default class PubDetailContextHeaderComponent extends Component {
           (pub.location) ? (
             <View style={{ flexDirection: 'row', alignItems: 'flex-start',
               marginTop: 12, }}>
-              <Image style={{ width: 14, marginTop: 2,
+              <Image style={{ width: 14, height: 20, marginTop: 2,
                   marginLeft: 8, }}
                 source={require('../../../images/pub/location.png')} />
               <Text style={{ marginLeft: 16, fontWeight: '800', color: '#000', }}>
@@ -40,7 +40,7 @@ export default class PubDetailContextHeaderComponent extends Component {
           (pub.brewery.phone) ? (
             <View style={{ flexDirection: 'row', alignItems: 'flex-start',
             marginTop: 12, }}>
-              <Image style={{ width: 16, marginTop: 4,
+              <Image style={{ width: 22, height: 22, marginTop: 4,
                 marginLeft: 8, }}
                 source={require('../../../images/pub/phone.png')} />
               <Text style={{ marginLeft: 16, fontWeight: '800', color: '#000', }}>{pub.brewery.phone}</Text>
@@ -51,7 +51,7 @@ export default class PubDetailContextHeaderComponent extends Component {
           (pub.brewery.homepage) ? (
             <View style={{ flexDirection: 'row', alignItems: 'flex-start',
             marginTop: 12, }}>
-              <Image style={{ width: 16, marginTop: 4,
+              <Image style={{ width: 22, height: 18, marginTop: 4,
                   marginLeft: 8, }}
                 source={require('../../../images/pub/site.png')} />
               <Text style={{ marginLeft: 16, fontWeight: '800', color: '#000', }}
@@ -65,7 +65,7 @@ export default class PubDetailContextHeaderComponent extends Component {
           (pub.brewery.est) ? (
             <View style={{ flexDirection: 'row', alignItems: 'flex-start',
             marginTop: 12, }}>
-              <Image style={{ width: 17, marginTop: 2,
+              <Image style={{ width: 18, height: 20, marginTop: 2,
                   marginLeft: 8, }}
                 source={require('../../../images/pub/create.png')} />
               <Text style={{ marginLeft: 16, fontWeight: '800', color: '#000', }}>{pub.brewery.est}</Text>
@@ -76,7 +76,7 @@ export default class PubDetailContextHeaderComponent extends Component {
           (pub.brewery.facebook || pub.brewery.facebook) ? (
             <View style={{ flexDirection: 'row', alignItems: 'flex-start',
               marginTop: 12, }}>
-              <Image style={{ width: 20, marginTop: 6,
+              <Image style={{ width: 22, height: 11, marginTop: 6,
                   marginLeft: 8, }}
                 source={require('../../../images/pub/sns.png')} />
               <View style={{ marginLeft: 16, flexDirection: 'row' }}>

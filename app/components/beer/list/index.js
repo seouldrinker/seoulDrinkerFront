@@ -11,7 +11,7 @@ export default class BeerComponent extends Component {
   render() {
     return (
       <TouchableOpacity style={{ flexDirection: 'row', paddingTop: 14, paddingBottom: 14,
-        paddingLeft: 10, borderBottomWidth: 1, borderBottomColor: '#d8d8d8'}}
+        paddingLeft: 16, borderBottomWidth: 1, borderBottomColor: '#d8d8d8'}}
         onPress={this.props.navigateDetailPage}>
         <View>
           <Image style={{ width: 56, height: 56, marginLeft: 12, marginRight: 12 }}

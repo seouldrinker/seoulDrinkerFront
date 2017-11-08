@@ -11,16 +11,16 @@ export default class PubComponent extends Component {
   render() {
     return (
       <TouchableOpacity style={{ flexDirection: 'row', paddingTop: 14, paddingBottom: 14,
-        paddingLeft: 10, borderBottomWidth: 1, borderBottomColor: '#d8d8d8'}}
+        paddingLeft: 16, borderBottomWidth: 1, borderBottomColor: '#d8d8d8'}}
         onPress={this.props.navigateDetailPage}>
         <View>
           <Image style={{ width: 56, height: 56, marginLeft: 12, marginRight: 12 }}
             source={{ uri: `${STATIC_URL}/${this.props.data.brewery.logo_image}` }} />
         </View>
         <View style={{ marginLeft: 4,  }}>
-          <Text style={{ fontSize: 15, fontWeight: '900', color: '#000' }}>{this.props.data.brewery.eng_name}</Text>
+          <Text style={{ fontSize: 15, fontWeight: '900', color: '#000' }}>{this.props.data.eng_name}</Text>
           <Text style={{ fontSize: 15, fontWeight: '900', color: '#000',
-            marginTop: 2, }}>{this.props.data.brewery.kor_name}</Text>
+            marginTop: 2, }}>{this.props.data.kor_name}</Text>
           <Text style={{ fontSize: 14, fontWeight: '400', color: '#949494',
             marginTop: 2, }}>{this.props.data.location}</Text>
           <Text style={{ fontSize: 14, fontWeight: '400', color: '#949494',
