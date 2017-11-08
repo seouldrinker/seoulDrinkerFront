@@ -16,11 +16,11 @@ export default TabNavigator({
   Feed: {
     screen: Feed,
     navigationOptions: {
-      tabBarLabel: '피드',
+      tabBarLabel: 'FEED',
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('../images/common/feed.png')}
-          style={[styles.naviIcon, {tintColor: tintColor}]}
+          style={[{ width: 24, height: 20, }, {tintColor: tintColor}]}
         />
       ),
     }
@@ -29,11 +29,11 @@ export default TabNavigator({
     screen: Pub,
     navigationOptions: {
       header: null,
-      tabBarLabel: '펍',
+      tabBarLabel: 'PUB',
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('../images/common/pub.png')}
-          style={[styles.naviIcon, {tintColor: tintColor}]}
+          style={[{ width: 24, height: 22, }, {tintColor: tintColor}]}
         />
       ),
     }
@@ -42,11 +42,11 @@ export default TabNavigator({
     screen: Beer,
     navigationOptions: {
       header: null,
-      tabBarLabel: '비어',
+      tabBarLabel: 'BEER',
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('../images/common/beer.png')}
-          style={[styles.naviIcon, {tintColor: tintColor}]}
+          style={[{ width: 20, height: 24, }, {tintColor: tintColor}]}
         />
       ),
     }
@@ -55,11 +55,11 @@ export default TabNavigator({
     screen: News,
     navigationOptions: {
       header: null,
-      tabBarLabel: '뉴스',
+      tabBarLabel: 'NEWS',
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('../images/common/news.png')}
-          style={[styles.naviIcon, {tintColor: tintColor}]}
+          style={[{ width: 18, height: 22, }, {tintColor: tintColor}]}
         />
       ),
     }
@@ -68,11 +68,11 @@ export default TabNavigator({
     screen: My,
     navigationOptions: {
       header: null,
-      tabBarLabel: '마이',
+      tabBarLabel: 'MY',
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('../images/common/my.png')}
-          style={[styles.naviIcon, {tintColor: tintColor}]}
+          style={[{ width: 22, height: 22, }, {tintColor: tintColor}]}
         />
       ),
     }

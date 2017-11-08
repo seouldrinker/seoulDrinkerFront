@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {
   Image,
   TouchableOpacity,
+  BackHandler,
   Text,
 } from 'react-native'
 import { StackNavigator, NavigationActions, addNavigationHelpers } from 'react-navigation'
@@ -21,27 +22,9 @@ import * as actions from '../actions'
 export const AppNavigator = StackNavigator({
   Home: {
     screen: MainNavigator,
-    navigationOptions: ({ navigation, screenProps }) => ({
-      headerTitle: (
-        <Image source={require('../images/common/logo.png')}
-          style={{ width: 156, height: 28, alignSelf: 'center', }}/>
-      ),
-      headerLeft: (
-        <TouchableOpacity onPress={() => navigation.dispatch(NavigationActions.navigate({
-            routeName: 'Record',
-          }))}>
-          <Image source={require('../images/common/record.png')}
-            style={{ marginLeft: 20, }}/>
-        </TouchableOpacity>
-      ),
-      headerRight: (
-        <Text style={{ marginRight: 25 }}></Text>
-      ),
-      headerStyle: {
-        backgroundColor: '#eea51b',
-        elevation: 8,
-      }
-    })
+    navigationOptions: {
+      header: null
+    }
   },
   Login: {
     screen: Login,
@@ -89,9 +72,40 @@ export const AppNavigator = StackNavigator({
 })
 
 
-const AppWithNavigationState = ({ dispatch, nav }) => (
-  <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
-)
+class AppWithNavigationState extends Component {
+  constructor(props) {
+    super(props)
+    this.handleBackPress = this.handleBackPress.bind(this)
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress')
+  }
+
+  handleBackPress () {
+    const routes = this.props.nav.routes
+
+    if (this.props.nav.routes.length <= 3
+      || routes[this.props.nav.index].routeName === 'Home'
+      || routes[this.props.nav.index].routeName === 'Feed'
+      || routes[this.props.nav.index].routeName === 'Login') {
+      return false
+    }
+
+    this.props.dispatch({ type: 'Navigation/BACK', key: null, })
+    return true
+  }
+
+  render() {
+    return <AppNavigator navigation={addNavigationHelpers(
+      { dispatch: this.props.dispatch, state: this.props.nav }
+    )} />
+  }
+}
 
 export default connect(state => ({
   nav: state.nav,
